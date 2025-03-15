@@ -221,6 +221,129 @@
                 width: 2cm;
             }
         }
+        /* Styles for iframe map */
+iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    border: 0;
+}
+
+/* Overlay container with responsiveness */
+.overlay-container {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 90%; /* Make it responsive on smaller screens */
+}
+
+/* Container 1 (the first container) */
+.container-1,
+.container-2 {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px; 
+}
+
+/* Container 1 specific styles */
+.container-1 {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 10px; /* Added margin for spacing */
+}
+
+/* Container 2 specific styles */
+.container-2 {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+/* Flex box for responsiveness */
+.container-1 .row,
+.container-2 .row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.container-1 .col-sm-5,
+.container-2 .col-sm-5 {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Input and text area responsiveness */
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+/* Media Queries for specific screen sizes */
+
+/* Tablet screen sizes */
+@media (max-width: 768px) {
+    .overlay-container {
+        top: 10%; 
+        width: 95%;
+        flex-direction: column;
+    }
+
+    .container-1, .container-2 {
+        width: 100%;
+        max-width: none;
+        margin: 10px 0;
+    }
+
+    iframe {
+        height: 50%; /* Adjust iframe size on smaller screens */
+    }
+
+    .container-1 .row {
+        flex-direction: column; /* Stack content vertically */
+    }
+}
+
+/* Mobile screen sizes */
+@media (max-width: 576px) {
+    .overlay-container {
+        top: 10%; /* Adjust position */
+        width: 95%;
+    }
+
+    .container-1, .container-2 {
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    iframe {
+        height: 40%; /* Adjust iframe size for mobile */
+    }
+
+    .container-1 .col-sm-5,
+    .container-2 .col-sm-5 {
+        width: 100%; /* Stack columns */
+        margin-bottom: 10px;
+    }
+
+    button.btn-green {
+        width: 100%; /* Full width button */
+    }
+}
+
     </style>
 </head>
 <body class="d-block">
