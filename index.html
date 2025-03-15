@@ -13,7 +13,7 @@
         .map-container {
         position: relative;
         width: 100%;
-        height: 100vh; /* Full height of the screen */
+        height: 100vh; 
         }
 
         iframe {
@@ -39,9 +39,15 @@
         padding: 20px;
         margin-bottom: 20px;
         border-radius: 8px;
+        width: 40%;
         }
         .container-1{
-            background-color: #37761d;
+            width: 40%;
+            
+        }
+        .container-2{
+            background-color: #fdfbef;
+            width: 50%;
         }
 
         nav{
@@ -170,30 +176,29 @@
             height: 100vh; 
             }
 
-        iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-        }
+            iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            }
 
-        .overlay-container {
-        position: absolute;
-        top: 20%; 
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-        width: 80%;
-        }
+            .overlay-container {
+            position: absolute;
+            top: 20%; 
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            width: 80%;
+            }
 
-        .container-1, .container-2 {
-        background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-        }
+            .container-1, .container-2 {
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            }
         }
         
         @media screen and (max-width: 576px){
@@ -242,7 +247,7 @@
                             <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#">Our Services</a>
+                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#services">Our Services</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active fw-bolder text-green" style="color: #37761d;" >Our Team</a>
@@ -367,14 +372,14 @@
                 
             </div>
             <div class="col-md-5" data-aos="fade-left">
-                <img src="asset/image/waste 1.jpg" alt="" class="img-fluid about-image my-5 py-3 pb-5 " data-aos="fade-left">
+                <img src="asset/image/waste1.jpg" alt="" class="img-fluid about-image my-5 py-3 pb-5 " data-aos="fade-left">
             </div>
             
             
         </div>
 
     </div>
-    <div class="text-white p-5 bg-yellow mt-5" data-aos="fade-right" style="background-color: #fdfbef;">
+    <div class="text-white p-5 bg-yellow mt-5 justify-content-between" data-aos="fade-right" style="background-color: #fdfbef;">
         <div class="d-flex">
             <div class="fs-3">
                 <img src="asset/icon/logo.png" alt="" alt="" class="img p-2">  
@@ -398,7 +403,7 @@
 
 
 
-    <div class="container-fluid bg-dark text-light w-100 mt-0  py-3">
+    <div class="container-fluid bg-dark text-light w-100 mt-0  py-3" id="services">
         <div class="col-md-12 d-flex w-100 my-5 py-5 pc4" style="justify-content: space-between;">
             <div >
                 <h6>Our Services</h6>
@@ -655,16 +660,56 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3730.2475005886436!2d9.354842429161204!3d11.718095440621536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11abfb0d8e1e562f%3A0xa3294b440f04e324!2sDutse%2C%20Jigawa!5e0!3m2!1sen!2sng!4v1742047766180!5m2!1sen!2sng" allowfullscreen="" loading="lazy"></iframe>
     
         <!-- Overlay containers -->
-        <div class="overlay-container col-11 col-sm-5 col-md-3 mb-4 mx-2">
-          <div class="container-1 col">
-            <h3>Container 1</h3>
-            <p>This is the first container.</p>
+          <div class="col-5 col-sm-8 col-md-5">
+              <div class="overlay-container col-11 col-sm-5 col-md-3 mb-4 mx-2 relative d-flex">
+                    <div class="container-1 bg-green col absolute my-auto">
+                       <div class="row">
+                            <div class="col-sm-5 ">
+                                <h3>Container Us</h3>
+                                <p>This is the first container.</p>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="d-flex">
+                                    <span><i class="bi bi-house-fill"></i></span>
+                                    <p>Address</p>
+                                </div>
+                                <div class="d-flex">
+                                    <span><i class="bi bi-envelope-at-fill"></i></span>
+                                    <p>khaleedbnwaleed@gmail.com</p>
+                                </div>
+                                <div class="d-flex">
+                                    <span><i class="bi bi-telephone-fill"></i></span>
+                                    <p>+234 8169525295</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-2">
+                        <div>
+                            <h3>Send a Message</h3>
+                            <p>This is the second container.</p>
+                        </div>
+                        <div>
+                            <form action="">
+                               <div class="d-flex">
+                                <div class="d-grid m-3">
+                                    <label for="name">Full-Name</label>
+                                    <input class="border-top-0 border-start-0 border-end-0" style="background-color: #fdfbef;" type="text" placeholder="Enter Your Name">
+                                </div>
+                                <div class="d-grid m-3">
+                                    <label for="email">Email</label>
+                                    <input class="border-top-0 border-start-0 border-end-0" style="background-color: #fdfbef;" type="email" placeholder="Enter Your Email">
+                                </div>
+                               </div>
+                                <div class="d-grid m-3">
+                                    <label for="message">Message</label>
+                                    <textarea  class="border-top-0 border-start-0 border-end-0" name="message" id="message" cols="30" rows="2" placeholder="Enter Your Message" style="background-color: #fdfbef;" ></textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+              </div>
           </div>
-          <div class="container-2">
-            <h3>Container 2</h3>
-            <p>This is the second container.</p>
-          </div>
-        </div>
       </div>
 
 
