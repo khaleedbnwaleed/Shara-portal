@@ -282,7 +282,7 @@ iframe {
 }
 
 /* Input and text area responsiveness */
-input,
+
 textarea {
     width: 100%;
     padding: 10px;
@@ -309,11 +309,11 @@ textarea {
     }
 
     iframe {
-        height: 50%; /* Adjust iframe size on smaller screens */
+        height: 50%; 
     }
 
     .container-1 .row {
-        flex-direction: column; /* Stack content vertically */
+        flex-direction: column;
     }
 }
 
@@ -348,7 +348,7 @@ textarea {
 </head>
 <body class="d-block">
         <!-- Main header -->
-    <div class="mainhead bg-green d-flex p-3" style="justify-content: space-between; height: 0.5cm;" data-aos="fade-down">
+    <div id="home" class="mainhead bg-green d-flex p-3" style="justify-content: space-between; height: 0.5cm;" data-aos="fade-down">
         
     </div>
 
@@ -377,7 +377,7 @@ textarea {
                             <a class="nav-link active fw-bolder text-green" style="color: #37761d;" >Our Team</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#">Contact</a>
+                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#contact">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -407,7 +407,7 @@ textarea {
                         <div class="col-md-3 m-2" data-aos="fade-right">
                             <div class="form-group mt-3 d-grid">
                                 <label class="text-green" for="service">Service*</label>
-                                <select class="bg-transparent border-top-0 border-start-0 border-end-0 border-dark "  id="service">
+                                <select class="bg-transparent border-top-0 border-start-0 border-end-0 border-dark col-12 col-md-12 col-sm-12"  id="service">
                                     <option value="curbside" selected>Select Service</option>
                                     <option value="dumpster">Plastic Waste(bottles, bags, wrappers)</option>
                                     <option value="composting">Recycled Paper & Cardboard</option>
@@ -503,22 +503,26 @@ textarea {
         </div>
 
     </div>
-    <div class="text-white p-5 bg-yellow mt-5 justify-content-between" data-aos="fade-right" style="background-color: #fdfbef;">
-        <div class="d-flex">
-            <div class="fs-3">
-                <img src="asset/icon/logo.png" alt="" alt="" class="img p-2">  
+    <div class="text-white px-5 py-3 bg-yellow mt-5 justify-content-between" data-aos="fade-right" style="background-color: #fdfbef;">
+       <marquee behavior="scroll" direction="">
+            <div class="d-flex mx-5">
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/logo.png" alt="" alt="" class="img p-2">  
+                </div>
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/ICT-removebg-preview.png" alt="" class="img2">
+                </div>
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/Jigawa-removebg-preview.png" alt="" class="img2">
+                </div>
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/WhatsApp_Image_2025-03-14_at_1.04.56_PM-removebg-preview.png" alt="" class="img-f">
+                </div>
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/Watchers.Ng.png" alt="" class="img-f">
+                </div>
             </div>
-            <div class="fs-3">
-                <img src="asset/icon/ICT-removebg-preview.png" alt="" class="img2">
-            </div>
-            <div class="fs-3">
-                <img src="asset/icon/Jigawa-removebg-preview.png" alt="" class="img2">
-            </div>
-            <div class="fs-3">
-                <img src="asset/icon/WhatsApp_Image_2025-03-14_at_1.04.56_PM-removebg-preview.png" alt="" class="img-f">
-            </div>
-            >
-        </div>
+       </marquee>
     </div>
 
 
@@ -606,7 +610,7 @@ textarea {
                 </div>
                 <div class="col-md-7 col-lg-7" style="font-size: xx-small;" data-aos="fade-right" >
                     <div class="" data-aos="fade-right">
-                        <h6 class="" data-aos="fade-right">Why Choose Us</h6>
+                        <h6 class="text-green" data-aos="fade-right">Why Choose Us</h6>
                         <h2 class="fs-5" data-aos="fade-right">Your Sustainable Choice for Waste Management.</h2>
                         <p data-aos="fade-right text-center">At Shara Eco Solutions Ltd., we offer a tech-driven waste management system that integrates AI, smart bins, and satellite tracking to ensure efficient waste collection and recycling. Our safe and sustainable disposal methods minimize environmental pollution, while our scheduled pickup services provide convenience for individuals and businesses. Through extensive recycling, we transform waste into reusable materials, biofuels, and fertilizers, promoting a circular economy. </p>
                        
@@ -678,7 +682,7 @@ textarea {
                     <div class="card dark-green2 text-center">
                         <img src="asset/icon/professional.png" class="card-img-top" alt="..." style="height: 1cm; width: 1cm; margin: 20% 40%;">
                         <div class="card-body">
-                            <h5 class="card-title">10k+</h5>
+                            <h5 class="card-title">10+</h5>
                             <p class="card-text">Professional </p>
                         </div>
                     </div>
@@ -688,7 +692,7 @@ textarea {
                     <div class="card dark-green2 text-center">
                         <img src="asset/icon/collective.png" class="card-img-top" alt="..." style="height: 1cm; width: 1cm; margin: 20% 40%;">
                         <div class="card-body">
-                            <h5 class="card-title">35k+</h5>
+                            <h5 class="card-title">35+</h5>
                             <p class="card-text">Volunteers</p>
                         </div>
                     </div>
@@ -698,10 +702,9 @@ textarea {
     </div>
     
     <div class="pc1 pt-5">
-        <div class="d-grid pt-6 mt-5 px-3">
-            <h6 class="text-green">Pricing Plans</h6>
-            <h4 class="text-dark">Simple Plans, Simplified Waste Management</h4>
-            <p>Lorem ipsum dolor sit amet consectetur. Condimentum risus eu et lacus et eget. Enim enim tempor nunc consequat tempor sem iaculis ullamcorper.</p>
+        <div class="d-grid pt-6 mt-5 px-3 mb-4">
+            <h6 class="text-green text-center">Pricing Plans</h6>
+            <h4 class="text-dark text-center">Simple Plans, Simplified Waste Management</h4>
         </div>
         <div class="d-flex flex-wrap justify-content-center">
             <!-- First card -->
@@ -779,7 +782,7 @@ textarea {
         
     </div>
    
-    <div class="map-container">
+    <div class="map-container" id="contact">
         <!-- Map iframe -->
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3730.2475005886436!2d9.354842429161204!3d11.718095440621536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11abfb0d8e1e562f%3A0xa3294b440f04e324!2sDutse%2C%20Jigawa!5e0!3m2!1sen!2sng!4v1742047766180!5m2!1sen!2sng" allowfullscreen="" loading="lazy"></iframe>
     
@@ -789,21 +792,20 @@ textarea {
                     <div class="container-1 bg-green col absolute my-auto">
                        <div class="row">
                             <div class="col-sm-5 ">
-                                <h3>Container Us</h3>
-                                <p>This is the first container.</p>
+                                <h3>Contact Us</h3>
                             </div>
                             <div class="col-sm-5">
                                 <div class="d-flex">
                                     <span><i class="bi bi-house-fill"></i></span>
-                                    <p>Address</p>
+                                    <p class="ms-3">Dutse Jigawa State</p>
                                 </div>
                                 <div class="d-flex">
                                     <span><i class="bi bi-envelope-at-fill"></i></span>
-                                    <p>khaleedbnwaleed@gmail.com</p>
+                                    <p class="ms-3">sharaecosolutions@gmail.com</p>
                                 </div>
                                 <div class="d-flex">
                                     <span><i class="bi bi-telephone-fill"></i></span>
-                                    <p>+234 8169525295</p>
+                                    <p class="ms-3">+234 8169525295</p>
                                 </div>
                             </div>
                         </div>
@@ -811,7 +813,6 @@ textarea {
                     <div class="container-2">
                         <div>
                             <h3>Send a Message</h3>
-                            <p>This is the second container.</p>
                         </div>
                         <div>
                             <form action="">
@@ -834,6 +835,27 @@ textarea {
               </div>
           </div>
       </div>
+
+
+      <footer class="bg-green">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <h3>Shara</h3>
+                </div>
+                <div class="col-12 col-md-12 d-grid">
+                    <h4>Quick Links</h4>
+                    <a href="#about">About Us</a>
+                    <a href="#services">Services</a>
+                     <a href="#contact">Contact</a>
+                     <a href="#home">Back to Top</a>
+                 </div>    
+                    
+    
+            </div>
+            
+        </div>
+      </footer>
 
 
     
