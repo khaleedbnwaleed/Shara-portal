@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shara</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <style>
+        .map-container {
+        position: relative;
+        width: 100%;
+        height: 100vh; 
+        }
+
+        iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70%;
+        border: 0;
+        }
+
+        .overlay-container {
+        display: flex;
+        position: absolute;
+        top: 20%; 
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        width: 80%;
+        }
+
+        .container-1, .container-2 {
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        width: 40%;
+        }
+        .container-1{
+            width: 40%;
+            
+        }
+        .container-2{
+            background-color: #fdfbef;
+            width: 50%;
+        }
+
+        nav{
+            border-radius: 20px;
+        }
+        
+        .c-icon{
+            font-size: 3rem;
+            color: #fed966;
+            margin-right: 20px;
+            padding-top: auto;
+            margin-right: 3px;
+        }
+        .about-image{
+            border-radius: 20px;
+            height: 100%;
+        }
+        .text-m{
+            font-size: 0.8rem;
+        }
+        .icon-i{
+            font-size: 3rem;
+            color: green;
+            font-weight: bolder;
+        }
+        .text-c{
+            font-size: 1rem;
+        }
+        
+        .color-green, .btn-green, .bg-green{
+            background-color: #37761d;
+        }
+        .btn-green, .bg-green{
+            color: white;
+        }
+        .btn-green:hover{
+            background-color: #fed966;
+        }
+        .text-green{
+            color: #37761d;
+        }
+        .color-yellow, .btn-yellow,.bg-yellow{
+            background-color: #fed966;
+        } .text-yellow{
+            color: #fed966;
+        }
+        .dark-green{
+            background-color: #123902;
+            color: #ffffff;
+        }
+        
+        .dark-green2{
+            background-color: #123902;
+            color: #fed966;
+        }
+        .pc{
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+
+        .pc1{
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+        .pc4{
+            padding: 0 20%;
+        }
+        
+        .img{
+            width: 5cm;
+            height: 1.8cm;
+        }
+        .img3{
+            width: 1.8cm;
+            height: 2cm;
+        }
+        .nav-green{
+            color: #37761d;
+
+        }
+        .ul li .text-green{
+            color: #37761d;
+            text-decoration: none;
+        }
+        .img2{
+            height: 1.7cm;
+            width: 2cm;
+        }
+        .img-f{
+            height: 2cm;
+            width: 2cm;
+        }
+        .d-image{
+            height: 50vh;
+        }
+
+        .d-crousel{
+            width: 50% ;
+            margin: auto;
+        }
+
+        @media screen and (max-width: 768px){
+            .pc{
+                padding-left: 10%;
+                padding-right: 10%;
+            }
+            .pc2{
+                padding-left: 20;
+                padding-right: 20;
+            }
+            .pc1{
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+            
+            .d-crousel{
+                width: 100% ;
+            }
+            .d-image{
+            height: 40vh;
+            }
+            .map-container {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 100vh; 
+            }
+
+            iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            border: 0;
+            }
+
+            .overlay-container {
+            position: absolute;
+            display: grid;
+            top: 20%; 
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            width: 80%;
+            }
+
+            .container-1, .container-2 {
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            }
+        }
+        
+        @media screen and (max-width: 576px){
+            .pc{
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .pc1{
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .img{
+                width: 2cm;
+                height: 1cm;
+            }
+            .img2{
+                height: 2cm;
+                width: 2cm;
+            }
+        }
+        /* Styles for iframe map */
+iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    border: 0;
+}
+
+/* Overlay container with responsiveness */
+.overlay-container {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 90%; /* Make it responsive on smaller screens */
+}
+
+/* Container 1 (the first container) */
+.container-1,
+.container-2 {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px; 
+}
+
+/* Container 1 specific styles */
+.container-1 {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 10px; /* Added margin for spacing */
+}
+
+/* Container 2 specific styles */
+.container-2 {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+/* Flex box for responsiveness */
+.container-1 .row,
+.container-2 .row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.container-1 .col-sm-5,
+.container-2 .col-sm-5 {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Input and text area responsiveness */
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+/* Media Queries for specific screen sizes */
+
+/* Tablet screen sizes */
+@media (max-width: 768px) {
+    .overlay-container {
+        top: 10%; 
+        width: 95%;
+        flex-direction: column;
+    }
+
+    .container-1, .container-2 {
+        width: 100%;
+        max-width: none;
+        margin: 10px 0;
+    }
+
+    iframe {
+        height: 50%; 
+    }
+
+    .container-1 .row {
+        flex-direction: column;
+    }
+}
+
+/* Mobile screen sizes */
+@media (max-width: 576px) {
+    .overlay-container {
+        top: 10%; /* Adjust position */
+        width: 95%;
+    }
+
+    .container-1, .container-2 {
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    iframe {
+        height: 40%; /* Adjust iframe size for mobile */
+    }
+
+    .container-1 .col-sm-5,
+    .container-2 .col-sm-5 {
+        width: 100%; /* Stack columns */
+        margin-bottom: 10px;
+    }
+
+    button.btn-green {
+        width: 100%; /* Full width button */
+    }
+}
+
+    </style>
+</head>
+</head>
+<body class="d-block">
+    <!-- Add this modal at the beginning of the body -->
+    <div class="modal fade" id="volunteerModal" tabindex="-1" aria-labelledby="volunteerModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-green text-white">
+                    <h5 class="modal-title" id="volunteerModalLabel">Volunteer Portal Open!</h5>
+                </div>
+                <div class="modal-body">
+                    <p>We're excited to announce that our volunteer portal is now open! Join our team and help make a difference in waste management.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="https://docs.google.com/forms/d/1kqJItNatd1Peg83FiBRmV_xxD6vRE8F_7OVqtZVr27E/edit " class="btn btn-green">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="home" class="mainhead bg-green d-flex p-3" style="justify-content: space-between; height: 0.5cm;" data-aos="fade-down">
+        
+    </div>
+
+        <!-- Background Section -->
+    <div class="container-fluid p-2 px-3 m-0" style="background-image: url('asset/image/waste-disposal-bins.JPG'); height: fit-content; min-height: 80vh; background-size: cover; background-position: center; background-repeat: no-repeat;" data-aos="fade-up">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary w-100 m-auto" data-aos="fade-right">
+            <div class="container-fluid" style="justify-content: space-between;">
+                <a class="navbar-brand" href="#"><img src="asset/image/sharaa-03.png" alt="" class="img" ></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse m-auto" style="justify-content: center;" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#services">Our Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" >Our Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bolder text-green" style="color: #37761d;" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="btn btn-green " >Get started</button>
+            </div>
+        </nav>
+
+        <!-- Empowering Text Section -->
+        <div class="container-fluid mt-5 text-center t text-light" style="border-radius: 20px;" data-aos="fade-left">
+            <div class="head-text fs-2 fw-bold mb-3">
+                Empowering Responsible Waste Management, Let's Make a Difference
+            </div>
+        </div>
+
+        <!-- Booking Form -->
+        <form action="" class="mt-6">
+            <div class="container-lg container-md bg-light mt-5 p-3 " style="border-radius: 20px;" data-aos="zoom-in">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-3 m-2" data-aos="fade-right">
+                            <div class="form-group mt-3 d-grid">
+                                <label class="text-green" for="name">Full-Name*</label>
+                                <input class="bg-transparent border-top-0 border-start-0 border-end-0 border-dark" type="text" class="form-control" id="name" placeholder="Enter your name">
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3 m-2" data-aos="fade-right">
+                            <div class="form-group mt-3 d-grid">
+                                <label class="text-green" for="service">Service*</label>
+                                <select class="bg-transparent border-top-0 border-start-0 border-end-0 border-dark col-12 col-md-12 col-sm-12"  id="service">
+                                    <option value="curbside" selected>Select Service</option>
+                                    <option value="dumpster">Plastic Waste(bottles, bags, wrappers)</option>
+                                    <option value="composting">Recycled Paper & Cardboard</option>
+                                    <option value="e-waste">E-Waste Recycling(Circuit boards, Cables)</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3 m-2" data-aos="fade-up">
+                            <div class="form-group mt-3 d-grid">
+                                <label class="text-green" for="industry">Industry Type</label>
+                                <select class="bg-transparent border-top-0 border-start-0 border-end-0 border-dark "  id="service">
+                                    <option value="curbside" selected>Select Industry</option>
+                                    <option value="dumpster">Clean</option>
+                                    <option value="composting">Wash</option>
+                                    <option value="e-waste">Dryer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 m-2" data-aos="flip-left">
+                        <div class="form-group mt-3">
+                            <button class="btn btn-green form-control mt-4">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="main container-fluid bg-yellow d-flex" data-aos="fade-up">
+        <ul class="row d-flex w-100 text-center list-unstyled pt-4">
+            <li class="col-md-3" data-aos="flip-left">
+                Curbsite Collection
+            </li>
+            <li class="col-md-3" data-aos="flip-right">
+                Dumpster Rental 
+            </li>
+            <li class="col-md-3" data-aos="fade-right">
+                Composting
+            </li>
+            <li class="col-md-3" data-aos="fade-left">
+                E-Waste Recycling
+            </li>
+        </ul>
+
+    </div>
+    <div class="container-fluid mt-0 pc bg-green " data-aos="zoom-in">
+        <div class="row py-5" data-aos="fade-left">
+            <div class="col-md-4 d-flex" data-aos="flip-left">
+                <i class="bi bi-trash3-fill c-icon" data-aos="fade-left"></i>
+                <div class="text ps-3" data-aos="fade-left">
+                    <h5 class="fs-5 "data-aos="fade-left">
+                        Safe Disposal</h5>
+                    <p data-aos="fade-left">We ensure environmentally friendly waste disposal methods that minimize pollution and health risks.</p>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex" data-aos="fade-left">
+                <i class="bi bi-truck c-icon" data-aos="fade-left"></i>
+                <div class="text ps-3" data-aos="fade-left">
+                    <h5 class="fs-5" data-aos="fade-left">Scheduled Pickup</h2>
+                    <p data-aos="fade-left"> Our smart waste collection system allows users to schedule pickups, ensuring timely and efficient waste management</p>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex" data-aos="fade-left">
+                <i class="bi bi-recycle c-icon" data-aos="fade-left"></i>
+                <div class="text ps-3" data-aos="fade-left">
+                    <h5 class="fs-5" data-aos="fade-left">Extensive Recycling</h2>
+                    <p data-aos="fade-left">We process plastics, paper, metals, and organic waste into reusable materials, supporting a circular economy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-lg pt-5 col-md-12 pc" data-aos="zoom-in" id="about">
+        <div class="row" data-aos="fade-right">
+            <div class="col-md-7" style="font-size: smaller;" data-aos="fade-right">
+                <div class="" data-aos="fade-right">
+                    <h6 class="text-green" data-aos="fade-right">About Us</h6>
+                    <h2 class="fs-3" data-aos="fade-right">Shara Eco Solutions Ltd</h2>
+                    <p>is a tech-driven waste management company committed to transforming waste into valuable, eco-friendly resources. Based in Nigeria, we leverage smart technology, AI-driven logistics, and recycling innovations to create a sustainable circular economy.</p>
+
+                    <p>Our services include safe waste disposal, scheduled pickups, extensive recycling, and waste-to-energy solutions, ensuring efficient and environmentally responsible waste management. Through initiatives like Trash-to-Cash, we incentivize individuals and businesses to actively participate in recycling while reducing pollution.</p>
+                    
+                   <p>At Shara Eco Solutions, we believe waste is not a problem, but an opportunity. By integrating data analytics, satellite technology, and community engagement, we are driving a cleaner, greener, and more sustainable future for Nigeria and beyond.</p>
+                </div>
+                
+            </div>
+            <div class="col-md-5" data-aos="fade-left">
+                <img src="asset/image/waste1.jpg" alt="" class="img-fluid about-image my-5 py-3 pb-5 " data-aos="fade-left">
+            </div>
+            
+            
+        </div>
+
+    </div>
+    <div class="text-white px-5 py-3 bg-yellow mt-5 justify-content-between" data-aos="fade-right" style="background-color: #fdfbef;">
+       <marquee behavior="scroll" direction="">
+            <div class="d-flex mx-5">
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/logo.png" alt="" alt="" class="img p-2">  
+                </div>
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/ICT-removebg-preview.png" alt="" class="img2">
+                </div>
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/Jigawa-removebg-preview.png" alt="" class="img2">
+                </div>
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/WhatsApp_Image_2025-03-14_at_1.04.56_PM-removebg-preview.png" alt="" class="img-f">
+                </div>
+                <div class="fs-3 mx-5">
+                    <img src="asset/icon/Watchers.Ng.png" alt="" class="img-f">
+                </div>
+            </div>
+       </marquee>
+    </div>
+
+
+    
+
+
+
+
+    <div class="container-fluid bg-dark text-light w-100 mt-0  py-3" id="services">
+        <div class="col-md-12 d-flex w-100 my-5 py-5 pc4" style="justify-content: space-between;">
+            <div >
+                <h6>Our Services</h6>
+                <h2>Waste Management Solutions Tailored to You</h2>
+            </div>
+        </div>
+        <div id="carouselExampleCaptions" class="carousel slide d-crousel " data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="asset/image/cardimage/image1.jpeg" class="d-block w-100 d-image" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Garbage Pickup</h5>
+                  <p>Convenient recycling solutions for plastics, paper, and metals.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="asset/image/cardimage/image2.jpeg" class="d-block w-100 d-image" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Residential Recycling</h5>
+                  <p>Flexible dumpster options for construction, events, and bulk waste disposal.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="asset/image/cardimage/image3.jpeg" class="d-block w-100 d-image" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Dumpster Rental</h5>
+                  <p>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="asset/image/cardimage/image4.jpeg" class="d-block w-100 d-image" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Junk Removal</h5>
+                  <p>Efficient removal of unwanted items, old furniture, and non-hazardous waste.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="asset/image/cardimage/image5.jpeg" class="d-block w-100 d-image" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Secure Destruction</h5>
+                  <p> Safe disposal of confidential documents and sensitive materials.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="asset/image/cardimage/image6.jpeg" class="d-block w-100 d-image" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Waste Recycling</h5>
+                  <p>Eco-friendly processing of waste into reusable materials and resources.</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </div>
+
+    <div class="col col-md-12 col-lg-12 py-5 pc" style="background-color: #fdfbef; font-size: 0.2rem;">
+        <div class="col col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+                    <img src="asset/image/cardimage/image8.jpeg" alt="" class="img-fluid about-image" data-aos="fade-left">
+                </div>
+                <div class="col-md-7 col-lg-7" style="font-size: xx-small;" data-aos="fade-right" >
+                    <div class="" data-aos="fade-right">
+                        <h6 class="text-green" data-aos="fade-right">Why Choose Us</h6>
+                        <h2 class="fs-5" data-aos="fade-right">Your Sustainable Choice for Waste Management.</h2>
+                        <p data-aos="fade-right text-center">At Shara Eco Solutions Ltd., we offer a tech-driven waste management system that integrates AI, smart bins, and satellite tracking to ensure efficient waste collection and recycling. Our safe and sustainable disposal methods minimize environmental pollution, while our scheduled pickup services provide convenience for individuals and businesses. Through extensive recycling, we transform waste into reusable materials, biofuels, and fertilizers, promoting a circular economy. </p>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="d-sm-grid d-md-flex container-fluid pc2">
+            <div class="card text-center m-4" style="background-color: #ffffff; border: 2px solid #37761d; height: fit-content;">
+                <img class="m-auto p-auto mt-2" style="height: 0.7cm; width: 0.7cm; justify-self: center;" src="asset/icon/recyclecar.png" class="card-img-top" alt="...">
+                <div class="card-body px-0">
+                    <h5 class="card-title" style="font-size: 1rem;">Large Volume Pickup</h5>
+                    <p class="card-text px-2" style="font-size: x-small;"> Efficient waste collection for businesses, industries, and large-scale disposals.
+                    </p>
+                </div>
+            </div>
+            <div class="card text-center m-4" style="background-color: #ffffff; border: 2px solid #37761d; height: fit-content;">
+                <img class="m-auto p-auto mt-2" style="height: 0.7cm; width: 0.7cm; justify-self: center;" src="asset/icon/scheduling.png" class="card-img-top" alt="...">
+                <div class="card-body px-0">
+                    <h5 class="card-title" style="font-size: 1rem;">Easy Online Scheduling</h5>
+                    <p class="card-text px-2" style="font-size: x-small;">Hassle-free booking for waste pickups at your convenience.</p>
+                </div>
+            </div>
+            <div class="card text-center m-4" style="background-color: #ffffff; border: 2px solid #37761d; height: fit-content;">
+                <img class="m-auto p-auto mt-2" style="height: 0.7cm; width: 0.7cm; justify-self: center;" src="asset/icon/recycleedu.png" class="card-img-top" alt="...">
+                <div class="card-body px-0">
+                    <h5 class="card-title" style="font-size: 1rem;">Recycling Education</h5>
+                    <p class="card-text px-2" style="font-size: x-small;">Awareness programs and resources to promote sustainable waste management.</p>
+                </div>
+            </div>
+            <div class="card text-center m-4" style="background-color: #ffffff; border: 2px solid #37761d; height: fit-content;">
+                <img class="m-auto p-auto mt-2" style="height: 0.7cm; width: 0.7cm; justify-self: center;" src="asset/icon/diamond.png" class="card-img-top" alt="...">
+                <div class="card-body px-0">
+                    <h5 class="card-title" style="font-size: 1rem;">Transparent Pricing</h5>
+                    <p class="card-text px-2" style="font-size: x-small;">Clear, fair, and competitive pricing with no hidden fees.</p>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="dark-green w-100 pc">
+        <div class="container col col-md-12 col-lg-12 pt-4">
+            <div class="row p-auto justify-content-center">
+                <!-- First card -->
+                <div class="col-10 col-sm-5 col-md-2 mb-4 mx-3" style="border: 1px solid #fed966; border-radius: 20px;">
+                    <div class="card dark-green2 text-center">
+                        <img src="asset/icon/satisfied.png" class="card-img-top" alt="..." style="height: 1cm; width: 1cm; margin: 20% 40%;">
+                        <div class="card-body">
+                            <h5 class="card-title">150+</h5>
+                            <p class="card-text">Satisfied Clients</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Second card -->
+                <div class="col-10 col-sm-5 col-md-2 mb-4 mx-3" style="border: 1px solid #fed966; border-radius: 20px;">
+                    <div class="card dark-green2 text-center">
+                        <img src="asset/icon/industries.png" class="card-img-top" alt="..." style="height: 1cm; width: 1cm; margin: 20% 40%;">
+                        <div class="card-body">
+                            <h5 class="card-title">20+</h5>
+                            <p class="card-text">Industries Served</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Third card -->
+                <div class="col-10 col-sm-5 col-md-2 mb-4 mx-3" style="border: 1px solid #fed966; border-radius: 20px;">
+                    <div class="card dark-green2 text-center">
+                        <img src="asset/icon/professional.png" class="card-img-top" alt="..." style="height: 1cm; width: 1cm; margin: 20% 40%;">
+                        <div class="card-body">
+                            <h5 class="card-title">10+</h5>
+                            <p class="card-text">Professional </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fourth card -->
+                <div class="col-10 col-sm-5 col-md-2 mb-4 mx-3" style="border: 1px solid #fed966; border-radius: 20px;">
+                    <div class="card dark-green2 text-center">
+                        <img src="asset/icon/collective.png" class="card-img-top" alt="..." style="height: 1cm; width: 1cm; margin: 20% 40%;">
+                        <div class="card-body">
+                            <h5 class="card-title">35+</h5>
+                            <p class="card-text">Volunteers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pc1 pt-5">
+        <div class="d-grid pt-6 mt-5 px-3 mb-4">
+            <h6 class="text-green text-center">Pricing Plans</h6>
+            <h4 class="text-dark text-center">Simple Plans, Simplified Waste Management</h4>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center">
+            <!-- First card -->
+            <div class="col-11 col-sm-5 col-md-3 mb-4 mx-2">
+                <div class="card w-100 text-center" style="background-color: #ffffff; border: 2px solid #37761d;">
+                    <img src="asset/icon/residentialw.png" alt="" class="m-auto p-auto" style="height: 1cm; width: 1cm;">
+                    <div class="card-body">
+                        <h5 class="card-title text-green">Residential Waste Management</h5>
+                        <hr>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right"> Basic Plan – ₦5,000/month (Weekly pickups, up to 2 bins)</p>
+                        </div>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right">Standard Plan – ₦8,000/month (Bi-weekly pickups, up to 4 bins, recycling included)</p>
+                        </div>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right">Premium Plan – ₦12,000/month (Unlimited pickups, waste sorting, and priority service).</p>
+                        </div>
+                        <button class="btn btn-yellow">Choose Plan</button>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Second card -->
+            <div class="col-11 col-sm-5 col-md-3 mb-4 mx-2">
+                <div class="card w-100 text-center" style="background-color: #ffffff; border: 2px solid #37761d;">
+                    <img src="asset/icon/residentialw.png" alt="" class="m-auto p-auto" style="height: 1cm; width: 1cm;">
+                    <div class="card-body">
+                        <h5 class="card-title text-green">Commercial Waste Management</h5>
+                        <hr>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right">Starter Plan – ₦20,000/month (Scheduled pickups, up to 5 bins)</p>
+                        </div>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right">Growth Plan – ₦35,000/month (Increased frequency, waste sorting, and recycling support)</p>
+                        </div>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right">Enterprise Plan – ₦50,000+/month (Custom solutions, large volume pickup)</p>
+                        </div>
+                        <button class="btn btn-yellow">Choose Plan</button>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Third card -->
+            <div class="col-11 col-sm-5 col-md-3 mb-4 mx-2">
+                <div class="card w-100 text-center" style="background-color: #ffffff; border: 2px solid #37761d;">
+                    <img src="asset/icon/residentialw.png" alt="" class="m-auto p-auto" style="height: 1cm; width: 1cm;">
+                    <div class="card-body">
+                        <h5 class="card-title text-green">Industrial Waste Management</h5>
+                        <hr>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right">Basic Plan – ₦80,000/month (bulk pickups, up to 10 bins)</p>
+                        </div>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right">Advanced Plan – ₦150,000/month (waste handling, large dumpster rental, recycling integration)</p>
+                        </div>
+                        <div class="d-flex text-m" data-aos="fade-right">
+                            <span class="text-green"><i class="bi bi-arrow-right" data-aos="zoom-in"></i></span>
+                            <p data-aos="fade-right">Custom Plan – Price on request (Tailored solutions for large-scale and specialized waste management)</p>
+                        </div>
+                        <button class="btn btn-yellow">Choose Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+   
+    <div class="map-container" id="contact">
+        <!-- Map iframe -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3730.2475005886436!2d9.354842429161204!3d11.718095440621536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11abfb0d8e1e562f%3A0xa3294b440f04e324!2sDutse%2C%20Jigawa!5e0!3m2!1sen!2sng!4v1742047766180!5m2!1sen!2sng" allowfullscreen="" loading="lazy"></iframe>
+    
+        <!-- Overlay containers -->
+          <div class="col-5 col-sm-8 col-md-5">
+              <div class="overlay-container col-11 col-sm-5 col-md-3 mb-4 mx-2 relative">
+                    <div class="container-1 bg-green col absolute my-auto">
+                       <div class="row">
+                            <div class="col-sm-5 ">
+                                <h3>Contact Us</h3>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="d-flex">
+                                    <span><i class="bi bi-house-fill"></i></span>
+                                    <p class="ms-3">Dutse Jigawa State</p>
+                                </div>
+                                <div class="d-flex">
+                                    <span><i class="bi bi-envelope-at-fill"></i></span>
+                                    <p class="ms-3">sharaecosolutions@gmail.com</p>
+                                </div>
+                                <div class="d-flex">
+                                    <span><i class="bi bi-telephone-fill"></i></span>
+                                    <p class="ms-3">+234 8169525295</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-2">
+                        <div>
+                            <h3>Send a Message</h3>
+                        </div>
+                        <div>
+                            <form action="">
+                                <div class="d-grid m-3">
+                                    <label for="name">Full-Name</label>
+                                    <input class="border-top-0 border-start-0 border-end-0" style="background-color: #fdfbef;" type="text" placeholder="Enter Your Name">
+                                </div>
+                                <div class="d-grid m-3">
+                                    <label for="email">Email</label>
+                                    <input class="border-top-0 border-start-0 border-end-0" style="background-color: #fdfbef;" type="email" placeholder="Enter Your Email">
+                                </div>
+                                <div class="d-grid m-3">
+                                    <label for="message">Message</label>
+                                    <textarea  class="border-top-0 border-start-0 border-end-0" name="message" id="message" cols="30" rows="2" placeholder="Enter Your Message" style="background-color: #fdfbef;" ></textarea>
+                                </div>
+                                <button class="btn btn-green">Send</button>
+                            </form>
+                        </div>
+                    </div>
+              </div>
+          </div>
+      </div>
+
+
+      <footer class="bg-green">
+        <div class="container-fluid">
+            <div class="d-flex flex-column flex-md-row">
+                <!-- Column for "Shara" -->
+                <div class="col-12 col-md-3 mb-3 mb-md-0 pt-5">
+                    <h3>Shara</h3>
+                </div>
+                
+                <!-- Column for Quick Links -->
+                <div class="col-12 col-md-4">
+                    <h4>Quick Links</h4>
+                    <a href="#about" class="d-block mb-2 ms-3 " style="color: #ffffff; text-decoration: none; font-size: smaller;">About Us</a>
+                    <a href="#services" class="d-block mb-2 ms-3 " style="color: #ffffff; text-decoration: none; font-size: smaller;">Services</a>
+                    <a href="#contact" class="d-block mb-2 ms-3 " style="color: #ffffff; text-decoration: none; font-size: smaller;">Contact</a>
+                    <a href="#home" class="d-block mb-2 ms-3 " style="color: #ffffff; text-decoration: none; font-size: smaller;">Back to Top</a>
+                </div>
+                <div class="col-12 col-md-5 d-grid">
+                    <div class="container-fluid">
+                       <h3>Follow us On</h3>
+                       <i  class="m-3 bi bi-whatsapp"></i>
+                       <i  class="m-3 bi bi-instagram"></i>
+                       <i  class="m-3 bi bi-twitter-x"></i>
+                       <i  class="m-3 bi bi-linkedin"></i>
+                    </div>
+                    <div class="container-fluid">
+                        <h3>NewsLetter</h3>
+                        <form action="" class="d-flex">
+                            <span><input class="" style="background-color: #fdfbef;" type="email" placeholder="Enter Your Email" style="border-radius: 5px;"></span>
+                            <span><button class="btn btn-yellow py-1">Subscribe</button></span>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+            <hr>
+            <div class="d-flex flex-column flex-md-row justify-content-around">
+                <div class="col-5">Copyright &copy; 2023 Shara Solutions. All Rights Reserved.</div>
+                <div class="col-2">privacy policy</div>
+                <div class="col-3">Terms & Condition</div>
+            </div>
+            
+            
+        </div>
+      </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1500, 
+            once: true
+        });
+
+        // Show volunteer modal on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            var volunteerModal = new bootstrap.Modal(document.getElementById('volunteerModal'));
+            volunteerModal.show();
+        });
+    </script>
+</body>
+</html>
