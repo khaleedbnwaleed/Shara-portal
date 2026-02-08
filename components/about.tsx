@@ -10,7 +10,7 @@ export default function About() {
           {/* Left Image */}
           <div className="order-2 md:order-1">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/PXL_20251025_082419643.RAW-01.COVER-ny7M9TLQWTB2cxXaN8o4wB9BcgwpMJ.jpg"
+              src="/asset/image/00.jpg"
               alt="Shara Eco Solutions team conducting community waste cleanup and recycling initiative"
               width={500}
               height={400}
