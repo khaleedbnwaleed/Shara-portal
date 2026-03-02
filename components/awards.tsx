@@ -1,6 +1,7 @@
- 'use client'
+'use client';
 
-import Image from 'next/image'
+import Image from '@/components/NextImage';
+
 import {
   Carousel,
   CarouselContent,

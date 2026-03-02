@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import Image from 'next/image';
+import Image from '@/components/NextImage';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

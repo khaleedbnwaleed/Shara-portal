@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/components/NextImage';
 import React from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import {

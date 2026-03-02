@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import Image from '@/components/NextImage';
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import Autoplay from 'embla-carousel-autoplay';
