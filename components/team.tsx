@@ -83,6 +83,17 @@ export default function Team() {
         twitter: 'https://twitter.com'
       }
     },
+    {
+      id: 7,
+      name: 'Lurwanu Hamza',
+      role: 'Mobilizin Officer I',
+      image: '/asset/image/wanana.png',
+      email: 'lurwanu.hamza@example.com',
+      social: {
+        linkedin: '#',
+        twitter: '#'
+      }
+    },
   ];
 
   return (

@@ -12,15 +12,16 @@ const nextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || '',
 
+  // control whether Next.js image optimization is active; we
+  // default to `true` in production but allow an override for
+  // environments where the optimizer isn’t available (static
+  // exports, GitHub Pages, etc.).  Set NEXT_PUBLIC_ENABLE_IMAGE_OPTIMIZATION
+  // to "false" to disable.
   images: {
-    // disable built–in optimization – this makes <Image> behave
-    // like a plain <img> and ensures assets work after a static
-    // export or on hosts (like GitHub Pages) that don’t run the
-    // optimizer.  The code in components/NextImage.tsx already adds
-    // `unoptimized` to every <Image> as well, for extra safety.
-    unoptimized: true,
+    unoptimized: process.env.NEXT_PUBLIC_ENABLE_IMAGE_OPTIMIZATION === 'false',
 
-    // Enable image optimization for better performance
+    // optimization settings – formats/size hints still apply when
+    // the optimizer is enabled.
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

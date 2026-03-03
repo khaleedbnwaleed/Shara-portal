@@ -20,7 +20,10 @@ export default function NextImage(props: ImageProps) {
     src = `${basePath}${src}`;
   }
 
-  // spread props but always disable optimization (safer for static
-  // hosting) and use the possibly‑modified src value.
-  return <Image {...props} src={src} unoptimized />;
+  // spread props but by default leave optimization enabled.  in
+  // rare cases where the build target doesn't support the
+  // optimizer (static export, GitHub Pages, etc.) you can set
+  // NEXT_PUBLIC_DISABLE_IMAGE_OPTIMIZATION=true and the flag in
+  // next.config will turn off optimization for you.
+  return <Image {...props} src={src} />;
 }

@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import Header from '@/components/header';
 import Hero from '@/components/hero';
 import About from '@/components/about';
+import ServicesCarousel from '@/components/services-carousel';
 import ImpactGallery from '@/components/impact-gallery';
 import Awards from '@/components/awards';
 import Team from '@/components/team';
@@ -19,6 +20,9 @@ export default function Home() {
       <Hero />
       <Suspense fallback={<div className="h-96" />}>
         <About />
+      </Suspense>
+      <Suspense fallback={<div className="h-96" />}>
+        <ServicesCarousel />
       </Suspense>
       <Suspense fallback={<div className="h-96" />}>
         <ImpactGallery />
