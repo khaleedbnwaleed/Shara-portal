@@ -13,7 +13,7 @@ import {
 
 export default function ImpactGallery() {
   const plugin = React.useRef(
-    Autoplay({ delay: 1000, stopOnInteraction: true })
+    Autoplay({ delay: 3000, stopOnInteraction: true })
   );
 
   const impactImages = [

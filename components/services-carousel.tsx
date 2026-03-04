@@ -45,7 +45,7 @@ export default function ServicesCarousel() {
 
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % services.length);
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(timer);
   }, [isAutoplay, services.length]);

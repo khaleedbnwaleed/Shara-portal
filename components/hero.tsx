@@ -126,10 +126,12 @@ export default function Hero() {
                         disabled={isLoading}
                       >
                         <option>Select Service</option>
-                        <option>Curbside Collection</option>
-                        <option>Dumpster Rental</option>
-                        <option>E-Waste Recycling</option>
-                        <option>Composting</option>
+                        <option>Waste Collection</option>
+                        <option>Residential Trash Collection</option>
+                        <option>Commercial Bin Rentals</option>
+                        <option>Incineration</option>
+                        <option>Cleaning Services</option>
+                        <option>Others</option>
                       </select>
                     </div>
 
