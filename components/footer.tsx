@@ -12,11 +12,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Shara_Eco_Logo-removebg-preview-IYf68Ar8OlgVfTfTzRTuBGH0Uxvcqu.png"
+              src="/asset/image/Shara Logo.png"
               alt="Shara Eco Solutions - Transforming Waste, Empowering Communities"
               width={160}
               height={50}
-              className="h-12 sm:h-14 w-auto mb-4 sm:mb-6 brightness-0 invert"
+              className="h-12 sm:h-14 w-auto mb-4 sm:mb-6"
             />
             <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
               Transforming Waste, Empowering Communities. Tech-driven waste management for a sustainable future.

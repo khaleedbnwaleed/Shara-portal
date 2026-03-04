@@ -32,7 +32,7 @@ export default function Team() {
       id: 2,
       name: 'Muhammad K. Muhammad',
       role: 'Operations Manager',
-      image: '/asset/image/amigo.jpg',
+      image: '/asset/image/Amigo.jpg',
       email: 'muhammadkmuhammad1@gmail.com',
       social: { 
         linkedin: '#',
@@ -54,7 +54,7 @@ export default function Team() {
       id: 4,
       name: 'Abdulhakim Aminu',
       role: 'Community Relations',
-      image: '/asset/image/abdul.jpg',
+      image: '/asset/image/Abdul.jpg',
       email: 'chioma@sharaecosg.com',
       social: { 
         linkedin: '#',
