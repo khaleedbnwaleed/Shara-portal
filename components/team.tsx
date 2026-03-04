@@ -64,7 +64,7 @@ export default function Team() {
     {
       id: 5,
       name: 'Abdulhakim Aminu',
-      role: 'Community Relations',
+      role: 'Community Engagement Officer',
       image: '/asset/image/Abdul.jpg',
       email: 'chioma@sharaecosg.com',
       social: { 
@@ -97,7 +97,7 @@ export default function Team() {
     {
       id: 8,
       name: 'Lurwanu Hamza',
-      role: 'Mobilizin Officer I',
+      role: 'Mobilizing Officer I',
       image: '/asset/image/wanana.png',
       email: 'lurwanu.hamza@example.com',
       social: {

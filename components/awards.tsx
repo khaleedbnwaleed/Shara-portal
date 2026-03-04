@@ -1,6 +1,7 @@
 'use client';
-
+import React from 'react';
 import Image from '@/components/NextImage';
+import Autoplay from 'embla-carousel-autoplay';
 
 import {
   Carousel,
@@ -18,13 +19,17 @@ const awards = [
   },
   {
     title: 'Ideas and Data Global Excellence Award',
-    year: 'Katsina State - 2023',
+    year: 'Katsina State - 2025',
     image: '/asset/image/IDGA.jpeg',
   },
 
 ]
 
 export default function Awards() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  );
+
   return (
     <section id="awards" className="py-16 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +40,12 @@ export default function Awards() {
           </p>
         </div>
 
-        <Carousel>
+        <Carousel
+          opts={{ loop: true }}
+          plugins={[plugin.current]}
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+        >
           <CarouselContent className="flex items-stretch">
             {awards.map((a) => (
               <CarouselItem key={a.title}>
