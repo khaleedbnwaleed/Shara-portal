@@ -7,7 +7,6 @@ import ImpactGallery from '@/components/impact-gallery';
 import Awards from '@/components/awards';
 import Team from '@/components/team';
 import Projects from '@/components/projects';
-import Gallery from '@/components/gallery';
 import Partners from '@/components/partners';
 import PricingPlans from '@/components/pricing-plans';
 import WhyUs from '@/components/why-us';
@@ -29,9 +28,6 @@ export default function Home() {
       </Suspense>
       <Suspense fallback={<div className="h-96" />}>
         <Awards />
-      </Suspense>
-      <Suspense fallback={<div className="h-96" />}>
-        <Gallery />
       </Suspense>
       <Suspense fallback={<div className="h-96" />}>
         <Team />
