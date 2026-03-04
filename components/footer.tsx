@@ -1,6 +1,6 @@
 'use client';
 
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Whatsapp } from 'lucide-react';
 import Image from '@/components/NextImage';
 
 export default function Footer() {
@@ -110,6 +110,7 @@ export default function Footer() {
                 { icon: Twitter, href: '#' },
                 { icon: Instagram, href: '#' },
                 { icon: Linkedin, href: '#' },
+                { icon: Whatsapp, href: 'https://wa.me/2348169525295' },
               ].map((social, index) => {
                 const Icon = social.icon;
                 return (
