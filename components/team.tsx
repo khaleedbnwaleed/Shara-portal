@@ -30,6 +30,17 @@ export default function Team() {
     },
     {
       id: 2,
+      name: 'Kabiru Mustapha',
+      role: 'Business Development Manager',
+      image: '/asset/image/KB.png',
+      email: 'kabiru.mustapha@example.com',
+      social: {
+        linkedin: '#',
+        twitter: '#'
+      }
+    },
+    {
+      id: 3,
       name: 'Muhammad K. Muhammad',
       role: 'Operations Manager',
       image: '/asset/image/Amigo.jpg',
@@ -40,7 +51,7 @@ export default function Team() {
       }
     },
     {
-      id: 3,
+      id: 4,
       name: 'Ibrahim Suleiman',
       role: 'Technical Officer',
       image: '/asset/image/yarima.png',
@@ -51,7 +62,7 @@ export default function Team() {
       }
     },
     {
-      id: 4,
+      id: 5,
       name: 'Abdulhakim Aminu',
       role: 'Community Relations',
       image: '/asset/image/Abdul.jpg',
@@ -62,7 +73,7 @@ export default function Team() {
       }
     },
     {
-      id: 5,
+      id: 6,
       name: 'Auwalu Habibu',
       role: 'Recycling Coordinator',
       image: '/asset/image/auwal.png',
@@ -73,9 +84,9 @@ export default function Team() {
       }
     },
     {
-      id: 6,
+      id: 7,
       name: 'Saadatu Ahmed Shehu',
-      role: 'Co-Founder',
+      role: 'Recycling Coordinator',
       image: '/asset/image/moh.png',
       email: 'ibrahim@sharaecosg.com',
       social: { 
@@ -84,11 +95,22 @@ export default function Team() {
       }
     },
     {
-      id: 7,
+      id: 8,
       name: 'Lurwanu Hamza',
-      role: 'Mobilizing Officer I',
+      role: 'Mobilizin Officer I',
       image: '/asset/image/wanana.png',
       email: 'lurwanu.hamza@example.com',
+      social: {
+        linkedin: '#',
+        twitter: '#'
+      }
+    },
+    {
+      id: 9,
+      name: 'Haruna Sabo',
+      role: 'Staff Officer',
+      image: '/asset/image/Haro.png',
+      email: 'haro@example.com',
       social: {
         linkedin: '#',
         twitter: '#'

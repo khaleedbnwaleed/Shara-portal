@@ -14,18 +14,14 @@ const awards = [
   {
     title: 'Winners of Initiative for Impact (I4I) Business Competition',
     year: 'Jigawa State - 2025',
-    image: '/asset/image/10.jpg',
+    image: '/asset/image/I4I.jpeg',
   },
   {
     title: 'Ideas and Data Global Excellence Award',
     year: 'Katsina State - 2023',
-    image: '/asset/image/11.jpg',
+    image: '/asset/image/IDGA.jpeg',
   },
-  {
-    title: 'Sustainable Innovation Prize',
-    year: '2022',
-    image: '/asset/image/12.jpg',
-  },
+
 ]
 
 export default function Awards() {
@@ -43,21 +39,21 @@ export default function Awards() {
           <CarouselContent className="flex items-stretch">
             {awards.map((a) => (
               <CarouselItem key={a.title}>
-                <div className="p-4 min-h-[220px] flex flex-col md:flex-row items-center gap-6 bg-white rounded-lg shadow-sm border">
-                  <div className="w-full md:w-1/3 h-48 md:h-40 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+                <div className="p-4 min-h-[220px] flex flex-col items-center gap-6 bg-white rounded-lg shadow-sm border">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 bg-gray-100 rounded-full overflow-hidden flex items-center justify-center">
                     {/* Image holder: using a sample image from public/asset/image. Replace as needed. */}
                     <Image
                       src={a.image}
                       alt={a.title}
-                      width={400}
-                      height={240}
+                      width={160}
+                      height={160}
                       className="object-cover w-full h-full"
                       placeholder="empty"
                     />
                   </div>
 
-                  <div className="w-full md:w-2/3">
-                    <div className="flex items-center justify-between">
+                  <div className="w-full text-center">
+                    <div className="flex flex-col items-center">
                       <h3 className="text-xl font-semibold">{a.title}</h3>
                       <span className="text-sm text-muted-foreground">{a.year}</span>
                     </div>
