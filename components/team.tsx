@@ -86,7 +86,7 @@ export default function Team() {
     {
       id: 7,
       name: 'Saadatu Ahmed Shehu',
-      role: 'Recycling Coordinator',
+      role: 'Co-Founder',
       image: '/asset/image/moh.png',
       email: 'ibrahim@sharaecosg.com',
       social: { 
