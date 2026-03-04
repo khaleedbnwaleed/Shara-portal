@@ -18,27 +18,21 @@ export default function Hero() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    // build whatsapp url
+    const message = encodeURIComponent(
+      `New booking request:\nFull Name: ${formData.fullName}\nService Type: ${formData.serviceType}\nIndustry Type: ${formData.industryType}`
+    );
+    const waUrl = `https://wa.me/2348169525295?text=${message}`;
 
-    try {
-      const response = await fetch('/api/booking', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+    // open whatsapp in new tab
+    window.open(waUrl, '_blank');
 
-      if (response.ok) {
-        setShowSuccess(true);
-        setFormData({ fullName: '', serviceType: '', industryType: '' });
-        setTimeout(() => setShowSuccess(false), 5000);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    // reset form and show a brief confirmation
+    setShowSuccess(true);
+    setFormData({ fullName: '', serviceType: '', industryType: '' });
+    setTimeout(() => setShowSuccess(false), 5000);
   };
   return (
     <section
