@@ -26,8 +26,14 @@ export default function Hero() {
     );
     const waUrl = `https://wa.me/2348169525295?text=${message}`;
 
-    // open whatsapp in new tab
-    window.open(waUrl, '_blank');
+    console.log('WhatsApp URL:', waUrl);
+
+    // attempt to open whatsapp link; some browsers may block popups so
+    // fall back to navigation if window.open returns null.
+    const newWindow = window.open(waUrl, '_blank');
+    if (!newWindow) {
+      window.location.href = waUrl;
+    }
 
     // reset form and show a brief confirmation
     setShowSuccess(true);
