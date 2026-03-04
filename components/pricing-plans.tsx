@@ -150,9 +150,14 @@ export default function PricingPlans() {
                     </div>
 
                     {/* CTA Button */}
-                    <button className="w-full py-3 px-6 bg-secondary hover:bg-secondary/80 text-primary font-bold rounded-lg transition-colors">
+                    <a 
+                      href={`https://wa.me/2348169525295?text=I'm interested in the ${plan.name} for ${category.title}. Price: ${plan.price}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3 px-6 bg-secondary hover:bg-secondary/80 text-primary font-bold rounded-lg transition-colors text-center"
+                    >
                       Choose Plan
-                    </button>
+                    </a>
                   </div>
                 ))}
               </div>
