@@ -11,25 +11,25 @@ export default function ServicesCarousel() {
   const services = [
     {
       id: 1,
-      image: '/asset/image/cardimage/image1.jpeg',
+      image: '/asset/image/11.jpg',
       title: 'Smart Waste Collection and Management',
       description: 'Structured and technology-driven waste collection services for residential estates, corporate organizations, schools, and government institutions. Includes scheduled waste pickup, waste segregation at source, and deployment of smart bins.',
     },
     {
       id: 2,
-      image: '/asset/image/cardimage/image2.jpeg',
+      image: '/asset/image/12.jpg',
       title: 'Recycling and Resource Recovery',
       description: 'Promote circular economy practices by collecting, sorting, and processing recyclable materials such as plastics, paper, and metals. Convert waste into valuable resources through partnerships and buy-back initiatives.',
     },
     {
       id: 3,
-      image: '/asset/image/cardimage/image3.jpeg',
+      image: '/asset/image/13.jpg',
       title: 'Environmental Consultancy and ESG Advisory',
       description: 'Professional environmental consultancy services including waste audits, sustainability assessments, environmental compliance advisory, and ESG reporting support for organizations.',
     },
     {
       id: 4,
-      image: '/asset/image/cardimage/image4.jpeg',
+      image: '/asset/image/14.jpg',
       title: 'Climate and Environmental Education',
       description: 'Environmental awareness campaigns, school outreach programs, community sanitation initiatives, and youth empowerment training on climate action and sustainable practices.',
     },
@@ -41,7 +41,7 @@ export default function ServicesCarousel() {
     },
     {
       id: 6,
-      image: '/asset/image/cardimage/image6.jpeg',
+      image: '/asset/image/15.jpg',
       title: 'Green Startup Incubation and Innovation Support',
       description: 'Support early-stage environmental and climate-focused startups through mentorship, training, and business development. Equip young entrepreneurs with technical knowledge and market access opportunities.',
     },

@@ -23,7 +23,7 @@ export default function Header() {
           <div className="flex-shrink-0">
             <a href="/" className="flex items-center gap-2 group">
               <Image
-                src="/asset/image/logo.JPG"
+                src="/asset/image/Watchers.Ng.png"
                 alt="Shara Eco Solutions - Transforming Waste, Empowering Communities"
                 width={160}
                 height={50}
