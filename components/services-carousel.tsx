@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from '@/components/NextImage';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function ServicesCarousel() {
@@ -11,37 +10,31 @@ export default function ServicesCarousel() {
   const services = [
     {
       id: 1,
-      image: '/asset/image/11.jpg',
       title: 'Smart Waste Collection and Management',
       description: 'Structured and technology-driven waste collection services for residential estates, corporate organizations, schools, and government institutions. Includes scheduled waste pickup, waste segregation at source, and deployment of smart bins.',
     },
     {
       id: 2,
-      image: '/asset/image/12.jpg',
       title: 'Recycling and Resource Recovery',
       description: 'Promote circular economy practices by collecting, sorting, and processing recyclable materials such as plastics, paper, and metals. Convert waste into valuable resources through partnerships and buy-back initiatives.',
     },
     {
       id: 3,
-      image: '/asset/image/13.jpg',
       title: 'Environmental Consultancy and ESG Advisory',
       description: 'Professional environmental consultancy services including waste audits, sustainability assessments, environmental compliance advisory, and ESG reporting support for organizations.',
     },
     {
       id: 4,
-      image: '/asset/image/14.jpg',
       title: 'Climate and Environmental Education',
       description: 'Environmental awareness campaigns, school outreach programs, community sanitation initiatives, and youth empowerment training on climate action and sustainable practices.',
     },
     {
       id: 5,
-      image: '/asset/image/Fertilizer.JPG',
       title: 'Organic Waste Conversion and Green Solutions',
       description: 'Convert organic waste into compost and environmentally friendly products. Support urban farming, soil restoration, and sustainable agricultural practices.',
     },
     {
       id: 6,
-      image: '/asset/image/15.jpg',
       title: 'Green Startup Incubation and Innovation Support',
       description: 'Support early-stage environmental and climate-focused startups through mentorship, training, and business development. Equip young entrepreneurs with technical knowledge and market access opportunities.',
     },
@@ -86,24 +79,13 @@ export default function ServicesCarousel() {
         {/* Carousel Container */}
         <div className="relative group">
           {/* Main Slide */}
-          <div className="relative overflow-hidden rounded-2xl h-96 md:h-[500px]">
-            <Image
-              src={services[currentSlide].image || "/placeholder.svg"}
-              alt={services[currentSlide].title}
-              fill
-              quality={70}
-              className="object-cover transition-opacity duration-500"
-            />
-
-            {/* Caption Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
-              <h3 className="text-3xl md:text-4xl font-bold mb-2">
+          <div className="relative overflow-hidden rounded-2xl h-auto md:h-auto bg-primary/10 p-8 flex flex-col justify-center items-center text-center">
+            <h3 className="text-2xl md:text-3xl font-bold mb-2 text-primary">
                 {services[currentSlide].title}
-              </h3>
-              <p className="text-lg text-gray-200 max-w-lg">
+            </h3>
+            <p className="text-base md:text-lg text-foreground max-w-xl">
                 {services[currentSlide].description}
-              </p>
-            </div>
+            </p>
           </div>
 
           {/* Navigation Buttons */}

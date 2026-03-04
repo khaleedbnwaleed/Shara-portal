@@ -130,19 +130,6 @@ export default function Footer() {
               >
                 <i className="bi bi-whatsapp text-2xl"></i>
               </a>
-              ].map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className="p-2 bg-primary/20 rounded-full hover:bg-accent hover:text-neutral-dark transition-colors"
-                    aria-label="Social media link"
-                  >
-                    <Icon size={18} />
-                  </a>
-                );
-              })}
             </div>
           </div>
         </div>
