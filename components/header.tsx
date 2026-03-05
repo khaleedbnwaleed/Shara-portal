@@ -8,13 +8,13 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Services', href: '#services' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Team', href: '#team' },
-    { label: 'Why Us', href: '#why-us' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/#about' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Projects', href: '/#projects' },
+    { label: 'Team', href: '/team' },
+    { label: 'Why Us', href: '/#why-us' },
+    { label: 'Contact', href: '/#contact' },
   ];
 
   return (
