@@ -12,6 +12,7 @@ export default function Header() {
     { label: 'About', href: '/#about' },
     { label: 'Services', href: '/#services' },
     { label: 'Projects', href: '/#projects' },
+    { label: 'Pricing', href: '/pricing' },
     { label: 'Team', href: '/team' },
     { label: 'Why Us', href: '/#why-us' },
     { label: 'Contact', href: '/#contact' },

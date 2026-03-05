@@ -39,9 +39,6 @@ export default function Home() {
         <Partners />
       </Suspense>
       <Suspense fallback={<div className="h-96" />}>
-        <PricingPlans />
-      </Suspense>
-      <Suspense fallback={<div className="h-96" />}>
         <WhyUs />
       </Suspense>
       <Footer />
