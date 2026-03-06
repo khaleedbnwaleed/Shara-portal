@@ -106,7 +106,7 @@ export default function Footer() {
 
             <div className="flex gap-4">
               {[
-                { icon: Facebook, href: '#' },
+                { icon: Facebook, href: 'https://web.facebook.com/profile.php?id=61576225553979' },
                 { icon: Twitter, href: '#' },
                 { icon: Instagram, href: '#' },
                 { icon: Linkedin, href: '#' },

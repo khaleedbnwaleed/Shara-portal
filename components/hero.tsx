@@ -1,6 +1,7 @@
 'use client';
 
 import Image from '@/components/NextImage';
+import Link from 'next/link';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 
@@ -73,9 +74,12 @@ export default function Hero() {
                   Book Now
                   <ArrowRight size={18} className="hidden sm:block" />
                 </button>
-                <button className="px-6 sm:px-8 py-3 sm:py-3.5 bg-white/20 text-white rounded-lg font-semibold hover:bg-white/30 transition-colors border border-white/40 text-sm sm:text-base min-h-12">
-                  Learn More
-                </button>
+                <Link
+                  href="/volunteer"
+                  className="px-6 sm:px-8 py-3 sm:py-3.5 bg-white/20 text-white rounded-lg font-semibold hover:bg-white/30 transition-colors border border-white/40 text-sm sm:text-base min-h-12 flex items-center justify-center"
+                >
+                  Become Volunteer
+                </Link>
               </div>
             </div>
 

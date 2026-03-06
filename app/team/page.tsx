@@ -30,7 +30,7 @@ const categories: TeamCategory[] = [
       },
       {
         id: 3,
-        name: 'Nafiu',
+        name: 'Nafiu Umar',
         role: 'Board Member',
         image: '/asset/image/Nafiu.jpeg',
         social: {
