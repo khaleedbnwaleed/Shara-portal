@@ -50,12 +50,18 @@ export default function Header() {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden lg:flex items-center gap-4">
-            <a href="#learn" className="px-6 py-2.5 bg-secondary text-primary rounded-lg font-semibold hover:opacity-90 transition-colors text-sm min-h-10 flex items-center">
-              Learn
+            <a
+              href="/login"
+              className="px-6 py-2.5 bg-secondary text-primary rounded-lg font-semibold hover:opacity-90 transition-colors text-sm min-h-10 flex items-center justify-center"
+            >
+              Log in
             </a>
-            <button className="px-6 py-2.5 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-colors text-sm min-h-10">
-              Get Started
-            </button>
+            <a
+              href="/signup"
+              className="px-6 py-2.5 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-colors text-sm min-h-10 flex items-center justify-center"
+            >
+              Sign up
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -83,12 +89,20 @@ export default function Header() {
                   {link.label}
                 </a>
               ))}
-              <a href="#learn" className="text-sm font-semibold text-primary hover:text-accent hover:bg-gray-50 px-4 py-3 rounded-lg transition-all" onClick={() => setIsOpen(false)}>
-                Learn
+              <a
+                href="/login"
+                className="text-sm font-semibold text-primary hover:text-accent hover:bg-gray-50 px-4 py-3 rounded-lg transition-all"
+                onClick={() => setIsOpen(false)}
+              >
+                Log in
               </a>
-              <button className="text-sm font-semibold bg-primary text-primary-foreground px-4 py-3 rounded-lg hover:opacity-90 transition-colors mt-2 min-h-12">
-                Get Started
-              </button>
+              <a
+                href="/signup"
+                className="text-sm font-semibold bg-primary text-primary-foreground px-4 py-3 rounded-lg hover:opacity-90 transition-colors mt-2 min-h-12"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign up
+              </a>
             </div>
           </div>
         )}
