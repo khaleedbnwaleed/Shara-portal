@@ -4,14 +4,14 @@ import TeamPage, { TeamCategory } from '@/components/team-page';
 
 const categories: TeamCategory[] = [
   {
-    title: 'Board of Directors',
+    title: 'Board of Trustees',
     description:
       'Our board provides strategic direction and governance to support our mission.',
     members: [
       {
         id: 1,
-        name: 'Adamu',
-        role: 'Board Chair',
+        name: 'Adamu Musa',
+        role: 'Board Member',
         image: '/asset/image/Adamu.JPG',
         social: {
           linkedin: '#',
@@ -20,7 +20,7 @@ const categories: TeamCategory[] = [
       },
       {
         id: 2,
-        name: 'Abubakar',
+        name: 'Abubakar Abdullahi',
         role: 'Board Member',
         image: '/asset/image/Abubakar.jpeg',
         social: {
@@ -40,7 +40,7 @@ const categories: TeamCategory[] = [
       },
       {
         id: 4,
-        name: 'Jamilu',
+        name: 'Jamilu Salisu',
         role: 'Board Member',
         image: '/asset/image/Jamilu.JPG',
         social: {
@@ -127,9 +127,9 @@ const categories: TeamCategory[] = [
       },
       {
         id: 17,
-        name: 'Lurwanu Hamza',
-        role: 'Mobilizing Officer I',
-        image: '/asset/image/wanana.png',
+        name: 'MUazzam Ibrahim',
+        role: 'Robotics Engineer',
+        image: '/asset/image/muazzam.jpeg',
         social: {
           linkedin: '#',
           twitter: '#',
@@ -137,9 +137,9 @@ const categories: TeamCategory[] = [
       },
       {
         id: 18,
-        name: 'Haruna Sabo',
-        role: 'Staff Officer',
-        image: '/asset/image/Haro.png',
+        name: 'Usman Yahaya',
+        role: 'AI/ML Engineer',
+        image: '/asset/image/usman.jpeg',
         social: {
           linkedin: '#',
           twitter: '#',
@@ -154,9 +154,9 @@ const categories: TeamCategory[] = [
     members: [
       {
         id: 20,
-        name: 'Aisha Bello',
+        name: 'Lurwanu Hamza',
         role: 'Volunteer Coordinator',
-        image: '/asset/image/placeholder-profile.jpg',
+        image: '/asset/image/wanana.png',
         social: {
           linkedin: '#',
           twitter: '#',
@@ -164,9 +164,9 @@ const categories: TeamCategory[] = [
       },
       {
         id: 21,
-        name: 'Chinedu Okafor',
+        name: 'Yakubu Abdulllahi',
         role: 'Outreach Volunteer',
-        image: '/asset/image/placeholder-profile.jpg',
+        image: '/asset/image/luti.png',
         social: {
           linkedin: '#',
           twitter: '#',
@@ -181,9 +181,9 @@ const categories: TeamCategory[] = [
     members: [
       {
         id: 30,
-        name: 'Zainab Suleiman',
+        name: 'Rayyan Muhammad',
         role: 'Community Ambassador',
-        image: '/asset/image/placeholder-profile.jpg',
+        image: '/asset/image/rayyan.jpeg',
         social: {
           linkedin: '#',
           twitter: '#',
@@ -191,9 +191,19 @@ const categories: TeamCategory[] = [
       },
       {
         id: 31,
-        name: 'Emeka Nwafor',
+        name: 'Zaharaddini Ali',
         role: 'Youth Ambassador',
-        image: '/asset/image/placeholder-profile.jpg',
+        image: '/asset/image/dini.jpeg',
+        social: {
+          linkedin: '#',
+          twitter: '#',
+        },
+      },
+      {
+        id: 32,
+        name: 'Shamsu Hamza',
+        role: 'Community Ambassador',
+        image: '/asset/image/kaila.jpg',
         social: {
           linkedin: '#',
           twitter: '#',

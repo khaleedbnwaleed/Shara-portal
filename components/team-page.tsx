@@ -1,7 +1,16 @@
 'use client';
 
+import React from 'react';
 import Image from '@/components/NextImage';
 import { Linkedin, Twitter } from 'lucide-react';
+import Autoplay from 'embla-carousel-autoplay';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 export type TeamMember = {
   id: number;
@@ -21,6 +30,10 @@ export type TeamCategory = {
 };
 
 export default function TeamPage({ categories }: { categories: TeamCategory[] }) {
+  const coreTeamAutoplay = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  );
+
   return (
     <section className="py-16 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,7 +45,7 @@ export default function TeamPage({ categories }: { categories: TeamCategory[] })
             Meet the team driving Shara forward
           </h1>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            Our people are our strength. Learn about the Board of Directors, Core Team, Volunteers, and Ambassadors who power our mission.
+            Our people are our strength. Learn about the Board of Trustees, Core Team, Volunteers, and Ambassadors who power our mission.
           </p>
         </div>
 
@@ -49,59 +62,75 @@ export default function TeamPage({ categories }: { categories: TeamCategory[] })
               ) : null}
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {category.members.map((member) => (
-                <div
-                  key={member.id}
-                  className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm">
-                      <Image
-                        src={member.image ?? '/asset/image/student.jpg'}
-                        alt={member.name}
-                        fill
-                        className="object-cover"
-                        loading="lazy"
-                        quality={85}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-foreground">{member.name}</h3>
-                      <p className="text-sm font-medium text-accent/90 leading-relaxed">{member.role}</p>
-                    </div>
-                  </div>
+            <Carousel
+              opts={{
+                align: 'center',
+                loop: true,
+              }}
+              plugins={
+                category.title.toLowerCase().includes('core')
+                  ? [coreTeamAutoplay.current]
+                  : []
+              }
+              className="w-full max-w-4xl mx-auto"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {category.members.map((member) => (
+                  <CarouselItem
+                    key={member.id}
+                    className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
+                  >
+                    <div className="flex flex-col items-center text-center">
+                      <div className="relative w-32 sm:w-40 h-32 sm:h-40 mb-4 sm:mb-6 rounded-full overflow-hidden shadow-lg border-4 border-gray-100 hover:shadow-xl transition-shadow">
+                        <Image
+                          src={member.image ?? '/asset/image/student.jpg'}
+                          alt={member.name}
+                          fill
+                          className="object-cover object-center"
+                          loading="lazy"
+                          quality={85}
+                        />
+                      </div>
 
-                  {(member.social?.linkedin || member.social?.twitter) && (
-                    <div className="mt-4 flex items-center gap-2">
-                      {member.social?.linkedin ? (
-                        <a
-                          href={member.social.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-full bg-gray-100 p-2 text-gray-600 hover:bg-blue-600 hover:text-white transition-colors"
-                          aria-label={`LinkedIn profile for ${member.name}`}
-                        >
-                          <Linkedin size={16} />
-                        </a>
-                      ) : null}
-                      {member.social?.twitter ? (
-                        <a
-                          href={member.social.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-full bg-gray-100 p-2 text-gray-600 hover:bg-blue-400 hover:text-white transition-colors"
-                          aria-label={`Twitter profile for ${member.name}`}
-                        >
-                          <Twitter size={16} />
-                        </a>
-                      ) : null}
+                      <h3 className="text-base sm:text-lg font-bold text-primary mb-1">
+                        {member.name}
+                      </h3>
 
+                      <p className="text-xs sm:text-sm font-semibold text-accent mb-4 sm:mb-5 uppercase tracking-wider">
+                        {member.role}
+                      </p>
+
+                      <div className="flex gap-2 sm:gap-3 justify-center">
+                        {member.social?.linkedin ? (
+                          <a
+                            href={member.social.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 sm:p-2.5 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-600 hover:text-white transition-all"
+                            aria-label={`LinkedIn profile`}
+                          >
+                            <Linkedin size={16} className="sm:w-5 sm:h-5" />
+                          </a>
+                        ) : null}
+                        {member.social?.twitter ? (
+                          <a
+                            href={member.social.twitter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 sm:p-2.5 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-400 hover:text-white transition-all"
+                            aria-label={`Twitter profile`}
+                          >
+                            <Twitter size={16} className="sm:w-5 sm:h-5" />
+                          </a>
+                        ) : null}
+                      </div>
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="absolute -left-12 lg:-left-16 top-1/2 -translate-y-1/2" />
+              <CarouselNext className="absolute -right-12 lg:-right-16 top-1/2 -translate-y-1/2" />
+            </Carousel>
           </div>
         ))}
       </div>
