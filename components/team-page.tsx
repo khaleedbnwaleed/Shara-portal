@@ -30,8 +30,12 @@ export type TeamCategory = {
 };
 
 export default function TeamPage({ categories }: { categories: TeamCategory[] }) {
-  const coreTeamAutoplay = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true })
+  const autoplayPlugins = React.useMemo(
+    () =>
+      categories.map(() =>
+        Autoplay({ delay: 2500, stopOnInteraction: true })
+      ),
+    [categories.length]
   );
 
   return (
@@ -49,7 +53,7 @@ export default function TeamPage({ categories }: { categories: TeamCategory[] })
           </p>
         </div>
 
-        {categories.map((category) => (
+        {categories.map((category, index) => (
           <div key={category.title} className="mb-16">
             <div className="mb-8">
               <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-2">
@@ -67,11 +71,7 @@ export default function TeamPage({ categories }: { categories: TeamCategory[] })
                 align: 'center',
                 loop: true,
               }}
-              plugins={
-                category.title.toLowerCase().includes('core')
-                  ? [coreTeamAutoplay.current]
-                  : []
-              }
+              plugins={[autoplayPlugins[index]]}
               className="w-full max-w-4xl mx-auto"
             >
               <CarouselContent className="-ml-2 md:-ml-4">
@@ -81,7 +81,7 @@ export default function TeamPage({ categories }: { categories: TeamCategory[] })
                     className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
                   >
                     <div className="flex flex-col items-center text-center">
-                      <div className="relative w-32 sm:w-40 h-32 sm:h-40 mb-4 sm:mb-6 rounded-full overflow-hidden shadow-lg border-4 border-gray-100 hover:shadow-xl transition-shadow">
+                      <div className="relative w-32 sm:w-40 h-32 sm:h-40 mb-4 sm:mb-6 rounded-full overflow-hidden shadow-lg border-4 border-gray-100 hover:shadow-xl transition-shadow duration-[2500ms]">
                         <Image
                           src={member.image ?? '/asset/image/student.jpg'}
                           alt={member.name}
@@ -106,7 +106,7 @@ export default function TeamPage({ categories }: { categories: TeamCategory[] })
                             href={member.social.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 sm:p-2.5 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-600 hover:text-white transition-all"
+                            className="p-2 sm:p-2.5 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-600 hover:text-white transition-all duration-[2500ms]"
                             aria-label={`LinkedIn profile`}
                           >
                             <Linkedin size={16} className="sm:w-5 sm:h-5" />
@@ -117,7 +117,7 @@ export default function TeamPage({ categories }: { categories: TeamCategory[] })
                             href={member.social.twitter}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 sm:p-2.5 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-400 hover:text-white transition-all"
+                            className="p-2 sm:p-2.5 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-400 hover:text-white transition-all duration-[2500ms]"
                             aria-label={`Twitter profile`}
                           >
                             <Twitter size={16} className="sm:w-5 sm:h-5" />

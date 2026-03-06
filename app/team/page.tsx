@@ -68,7 +68,7 @@ const categories: TeamCategory[] = [
       {
         id: 11,
         name: 'Kabiru Mustapha',
-        role: 'Business Development Manager',
+        role: 'Business Development Partner',
         image: '/asset/image/KB.png',
         social: {
           linkedin: '#',
@@ -127,7 +127,7 @@ const categories: TeamCategory[] = [
       },
       {
         id: 17,
-        name: 'MUazzam Ibrahim',
+        name: 'Muazzam Ibrahim',
         role: 'Robotics Engineer',
         image: '/asset/image/muazzam.jpeg',
         social: {
@@ -166,7 +166,7 @@ const categories: TeamCategory[] = [
         id: 21,
         name: 'Yakubu Abdulllahi',
         role: 'Outreach Volunteer',
-        image: '/asset/image/luti.png',
+        image: '/asset/image/Luti.png',
         social: {
           linkedin: '#',
           twitter: '#',
@@ -183,7 +183,7 @@ const categories: TeamCategory[] = [
         id: 30,
         name: 'Rayyan Muhammad',
         role: 'Community Ambassador',
-        image: '/asset/image/rayyan.jpeg',
+        image: '/asset/image/Rayyan.jpeg',
         social: {
           linkedin: '#',
           twitter: '#',
@@ -193,7 +193,7 @@ const categories: TeamCategory[] = [
         id: 31,
         name: 'Zaharaddini Ali',
         role: 'Youth Ambassador',
-        image: '/asset/image/dini.jpeg',
+        image: '/asset/image/Dini.jpeg',
         social: {
           linkedin: '#',
           twitter: '#',
@@ -203,7 +203,7 @@ const categories: TeamCategory[] = [
         id: 32,
         name: 'Shamsu Hamza',
         role: 'Community Ambassador',
-        image: '/asset/image/kaila.jpg',
+        image: '/asset/image/kaila.JPG',
         social: {
           linkedin: '#',
           twitter: '#',
