@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { getPool } from '@/lib/db'
+import { getDb } from '@/lib/db'
 import { hashPassword, createSession } from '@/lib/auth'
 
 const signupSchema = z.object({
@@ -14,26 +14,26 @@ export async function POST(request: Request) {
     const body = await request.json()
     const data = signupSchema.parse(body)
 
-    const pool = getPool()
+    const db = getDb()
 
-    await pool.query(`
+    await db.query(`
       CREATE TABLE IF NOT EXISTS users (
-        id serial PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         name text NOT NULL,
         email text NOT NULL UNIQUE,
         password_hash text NOT NULL,
-        created_at timestamptz NOT NULL DEFAULT now()
+        created_at datetime NOT NULL DEFAULT (datetime('now'))
       )
     `)
 
     const passwordHash = await hashPassword(data.password)
 
-    const result = await pool.query(
-      'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING id',
+    const result = await db.query(
+      'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3)',
       [data.name, data.email.toLowerCase(), passwordHash],
     )
 
-    const userId = result.rows[0].id
+    const userId = result.rows[0]?.id ?? result.rows[0]?.lastInsertRowid
     const sessionToken = await createSession(userId)
 
     const response = NextResponse.json({ ok: true })
@@ -59,6 +59,10 @@ export async function POST(request: Request) {
     }
 
     console.error(error)
-    return NextResponse.json({ error: 'Unable to sign up' }, { status: 500 })
+
+    const isDev = process.env.NODE_ENV !== 'production'
+    const message = isDev && error instanceof Error ? error.message : 'Unable to sign up'
+
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

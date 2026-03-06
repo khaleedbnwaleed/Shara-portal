@@ -1,29 +1,8 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { Pool } from 'pg'
+import { getDb } from '@/lib/db'
 
 export const runtime = 'nodejs'
-
-function getPool() {
-  if ((global as any).volunteerPool) {
-    return (global as any).volunteerPool as Pool
-  }
-
-  const connectionString = process.env.NEON_DATABASE_URL
-  if (!connectionString) {
-    throw new Error('Missing NEON_DATABASE_URL environment variable')
-  }
-
-  const pool = new Pool({
-    connectionString,
-  })
-
-  if (process.env.NODE_ENV !== 'production') {
-    ;(global as any).volunteerPool = pool
-  }
-
-  return pool
-}
 
 const volunteerSchema = z
   .object({
@@ -69,11 +48,11 @@ export async function POST(request: Request) {
     const body = await request.json()
     const data = volunteerSchema.parse(body)
 
-    const pool = getPool()
+    const db = getDb()
 
-    await pool.query(`
+    await db.query(`
       CREATE TABLE IF NOT EXISTS volunteers (
-        id serial PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         name text NOT NULL,
         email text NOT NULL,
         phone text NOT NULL,
@@ -82,34 +61,21 @@ export async function POST(request: Request) {
         state_of_origin text NOT NULL,
         lga text NOT NULL,
         address text NOT NULL,
-        initiatives text[] DEFAULT ARRAY[]::text[],
-        skills text[] DEFAULT ARRAY[]::text[],
+        initiatives text,
+        skills text,
         hours_availability text NOT NULL,
         why_interested text NOT NULL,
         hope_gain text NOT NULL,
         signature text NOT NULL,
-        created_at timestamptz NOT NULL DEFAULT now()
+        created_at datetime NOT NULL DEFAULT (datetime('now'))
       )
     `)
 
-    // Ensure any missing columns are added if the table already exists
-    await pool.query(`
-      ALTER TABLE volunteers
-      ADD COLUMN IF NOT EXISTS phone text NOT NULL DEFAULT '',
-      ADD COLUMN IF NOT EXISTS education text NOT NULL DEFAULT '',
-      ADD COLUMN IF NOT EXISTS education_other text,
-      ADD COLUMN IF NOT EXISTS state_of_origin text NOT NULL DEFAULT '',
-      ADD COLUMN IF NOT EXISTS lga text NOT NULL DEFAULT '',
-      ADD COLUMN IF NOT EXISTS address text NOT NULL DEFAULT '',
-      ADD COLUMN IF NOT EXISTS initiatives text[] DEFAULT ARRAY[]::text[],
-      ADD COLUMN IF NOT EXISTS skills text[] DEFAULT ARRAY[]::text[],
-      ADD COLUMN IF NOT EXISTS hours_availability text NOT NULL DEFAULT '',
-      ADD COLUMN IF NOT EXISTS why_interested text NOT NULL DEFAULT '',
-      ADD COLUMN IF NOT EXISTS hope_gain text NOT NULL DEFAULT '',
-      ADD COLUMN IF NOT EXISTS signature text NOT NULL DEFAULT ''
-    `)
+    // For SQLite, arrays are stored as JSON. For Postgres, we use native arrays.
+    const initiativesValue = data.initiatives ? JSON.stringify(data.initiatives) : null
+    const skillsValue = data.skills ? JSON.stringify(data.skills) : null
 
-    await pool.query(
+    await db.query(
       `INSERT INTO volunteers (
         name,
         email,
@@ -136,8 +102,8 @@ export async function POST(request: Request) {
         data.stateOfOrigin,
         data.lga,
         data.address,
-        data.initiatives ?? [],
-        data.skills ?? [],
+        initiativesValue,
+        skillsValue,
         data.hoursAvailability,
         data.whyInterested,
         data.hopeGain,

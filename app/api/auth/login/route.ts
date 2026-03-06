@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { getPool } from '@/lib/db'
+import { getDb } from '@/lib/db'
 import { verifyPassword, createSession } from '@/lib/auth'
 
 const loginSchema = z.object({
@@ -13,19 +13,19 @@ export async function POST(request: Request) {
     const body = await request.json()
     const data = loginSchema.parse(body)
 
-    const pool = getPool()
+    const db = getDb()
 
-    await pool.query(`
+    await db.query(`
       CREATE TABLE IF NOT EXISTS users (
-        id serial PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         name text NOT NULL,
         email text NOT NULL UNIQUE,
         password_hash text NOT NULL,
-        created_at timestamptz NOT NULL DEFAULT now()
+        created_at datetime NOT NULL DEFAULT (datetime('now'))
       )
     `)
 
-    const userResult = await pool.query('SELECT id, password_hash FROM users WHERE email = $1', [
+    const userResult = await db.query('SELECT id, password_hash FROM users WHERE email = $1', [
       data.email.toLowerCase(),
     ])
 
