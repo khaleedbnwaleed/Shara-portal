@@ -4,7 +4,7 @@ import Image from '@/components/NextImage';
 
 export default function About() {
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20 bg-white">
+    <section id="about" className="py-10 sm:py-12 md:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left Image */}
