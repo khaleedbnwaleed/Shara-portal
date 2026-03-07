@@ -13,9 +13,14 @@ export default function Partners() {
   return (
     <section className="bg-secondary py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-xs sm:text-sm font-semibold text-primary mb-6 sm:mb-8 uppercase">
-          Trusted Partners
-        </p>
+        <div className="text-center mb-10 sm:mb-12">
+          <span className="inline-block px-3 sm:px-4 py-2 bg-white text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
+            Trusted Partners
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
+            Working with Organizations That Share Our Vision
+          </h2>
+        </div>
         <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 md:gap-12">
           {partners.map((partner, index) => (
             <div

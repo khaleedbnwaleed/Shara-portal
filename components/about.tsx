@@ -23,8 +23,10 @@ export default function About() {
           {/* Right Content */}
           <div className="order-1 md:order-2 space-y-6">
             <div>
-              <span className="text-xs sm:text-sm font-bold text-accent uppercase">About Us</span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mt-2">
+              <span className="inline-block px-3 sm:px-4 py-2 bg-white text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
+                About Us
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
                 Shara Eco Solutions Ltd
               </h2>
             </div>

@@ -60,7 +60,7 @@ export default function LoginPage() {
         description: 'You are now logged in.',
       })
 
-      router.push('/')
+      router.push('/dashboard')
     } catch (error) {
       toast({
         title: 'Login failed',

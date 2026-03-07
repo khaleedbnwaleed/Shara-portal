@@ -114,13 +114,15 @@ export default function VolunteerForm() {
 
       form.reset()
     } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Something went wrong while sending your info.'
+
       toast({
         title: 'Submission failed',
-        description:
-          'Something went wrong while sending your info. Please try again.',
+        description: errorMessage,
         variant: 'destructive',
       })
-      console.error(error)
+      console.error('Volunteer submission error:', error)
     } finally {
       setIsSubmitting(false)
     }

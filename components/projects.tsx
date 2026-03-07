@@ -23,7 +23,7 @@ export default function Projects() {
       description: 'Large-scale waste collection drive engaging 50+ community volunteers across Jigawa state.',
       image: '/asset/image/00.jpg',
       category: 'Community',
-      
+      impact: 'Improved local sanitation and diverted tons of waste from landfills.',
     },
       {
       id: 3,
@@ -31,7 +31,7 @@ export default function Projects() {
       description: 'Door-to-door waste collection service ensuring proper sorting at source.',
       image: '/asset/image/3.jpg',
       category: 'Services',
-      
+      impact: 'Helped households reduce landfill waste and increase recycling rates.',
     },
     {
       id: 4,
@@ -39,7 +39,7 @@ export default function Projects() {
       description: 'Comprehensive waste management education reaching schools and communities.',
       image: '/asset/image/student.jpg',
       category: 'Education',
-      
+      impact: 'Engaged hundreds of students with sustainable waste practices.',
     },
     {
       id: 5,
@@ -47,7 +47,7 @@ export default function Projects() {
       description: 'Advanced sorting facility converting collected waste into valuable recyclable materials.',
       image: '/asset/image/7.jpeg',
       category: 'Processing',
-      
+      impact: 'Enabled recycling streams to be diverted into usable raw materials.',
     },
     {
       id: 6,
@@ -55,7 +55,7 @@ export default function Projects() {
       description: 'Training young people as waste management professionals and community leaders.',
       image: '/asset/image/16.jpg',
       category: 'Training',
-      
+      impact: 'Empowered youth with skills to drive local waste initiatives.',
     },
     {
       id: 8,
@@ -63,7 +63,7 @@ export default function Projects() {
       description: 'Building awareness and participation from local communities in waste management.',
       image: '/asset/image/11.jpg',
       category: 'Community',
-      
+      impact: 'Increased volunteer participation and local recycling uptake.',
     },
     {
       id: 9,
@@ -71,7 +71,7 @@ export default function Projects() {
       description: 'Transforming waste management practices to create lasting environmental change.',
       image: '/asset/image/10.jpg',
       category: 'Infrastructure',
-      
+      impact: 'Delivered measurable reductions in community waste footprints.',
     },
   ];
 

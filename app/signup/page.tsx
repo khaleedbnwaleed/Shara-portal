@@ -71,7 +71,7 @@ export default function SignupPage() {
         description: 'Your account has been created. You are now logged in.',
       })
 
-      router.push('/')
+      router.push('/dashboard')
     } catch (error) {
       toast({
         title: 'Signup failed',
@@ -158,6 +158,16 @@ export default function SignupPage() {
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? 'Creating account…' : 'Sign up'}
                 </Button>
+
+                <p className="text-sm text-center text-muted-foreground mt-4">
+                  Already have an account?{' '}
+                  <a
+                    href="/login"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    Sign in
+                  </a>
+                </p>
               </form>
             </Form>
           </div>

@@ -50,7 +50,7 @@ export default function ServicesCarousel() {
     return () => clearInterval(timer);
   }, [isAutoplay, services.length]);
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setCurrentSlide(index);
     setIsAutoplay(false);
   };
@@ -69,8 +69,10 @@ export default function ServicesCarousel() {
     <section id="services" className="bg-neutral-dark text-white py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-12">
-          <p className="text-accent text-sm font-bold uppercase mb-2">Our Services</p>
+        <div className="mb-12 text-center">
+          <span className="inline-block px-3 sm:px-4 py-2 bg-white text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
+            Our Services
+          </span>
           <h2 className="text-4xl md:text-5xl font-bold text-balance">
             Waste Management Solutions Tailored to You
           </h2>

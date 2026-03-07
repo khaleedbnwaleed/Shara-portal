@@ -32,8 +32,9 @@ const nextConfig = {
   },
   // Enable compression and optimization
   compress: true,
-  // Optimize production builds
+  // Do not emit browser source maps in production (default already false)
   productionBrowserSourceMaps: false,
+
   // Enable SWR for better caching
   onDemandEntries: {
     maxInactiveAge: 60000,

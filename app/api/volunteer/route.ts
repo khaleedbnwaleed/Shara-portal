@@ -1,6 +1,8 @@
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { getDb } from '@/lib/db'
+import { getDb, getDbInfo } from '@/lib/db'
+import { getUserFromSession } from '@/lib/auth'
 
 export const runtime = 'nodejs'
 
@@ -48,11 +50,16 @@ export async function POST(request: Request) {
     const body = await request.json()
     const data = volunteerSchema.parse(body)
 
+    const cookieStore = await cookies()
+    const sessionToken = cookieStore.get('session')?.value
+    const user = sessionToken ? await getUserFromSession(sessionToken) : null
+
     const db = getDb()
 
     await db.query(`
       CREATE TABLE IF NOT EXISTS volunteers (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
+        user_id integer,
         name text NOT NULL,
         email text NOT NULL,
         phone text NOT NULL,
@@ -67,16 +74,30 @@ export async function POST(request: Request) {
         why_interested text NOT NULL,
         hope_gain text NOT NULL,
         signature text NOT NULL,
-        created_at datetime NOT NULL DEFAULT (datetime('now'))
+        created_at timestamptz NOT NULL DEFAULT now()
       )
     `)
 
-    // For SQLite, arrays are stored as JSON. For Postgres, we use native arrays.
-    const initiativesValue = data.initiatives ? JSON.stringify(data.initiatives) : null
-    const skillsValue = data.skills ? JSON.stringify(data.skills) : null
+    // Ensure older schemas have the user_id field (this can happen when the table was created before we added tracking)
+    await db.query('ALTER TABLE volunteers ADD COLUMN IF NOT EXISTS user_id integer')
+
+    // For SQLite/local JSON we store arrays as JSON strings, but in Postgres we can use a text[] column value.
+    const dbInfo = getDbInfo()
+
+    const initiativesValue = data.initiatives
+      ? dbInfo.mode === 'neon'
+        ? data.initiatives
+        : JSON.stringify(data.initiatives)
+      : null
+    const skillsValue = data.skills
+      ? dbInfo.mode === 'neon'
+        ? data.skills
+        : JSON.stringify(data.skills)
+      : null
 
     await db.query(
       `INSERT INTO volunteers (
+        user_id,
         name,
         email,
         phone,
@@ -92,8 +113,9 @@ export async function POST(request: Request) {
         hope_gain,
         signature
       )
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)`,
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,
       [
+        user?.id ?? null,
         data.name,
         data.email,
         data.phone,
@@ -113,7 +135,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ ok: true })
   } catch (error) {
-    console.error(error)
+    console.error('Volunteer request error:', error)
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -122,6 +144,7 @@ export async function POST(request: Request) {
       )
     }
 
-    return NextResponse.json({ error: 'Unable to save volunteer request' }, { status: 500 })
+    const message = error instanceof Error ? error.message : 'Unable to save volunteer request'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

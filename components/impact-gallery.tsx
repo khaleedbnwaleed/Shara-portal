@@ -44,10 +44,10 @@ export default function ImpactGallery() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <span className="text-xs sm:text-sm font-bold text-accent uppercase tracking-wider">
+          <span className="inline-block px-3 sm:px-4 py-2 bg-white text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
             Our Impact
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mt-3 sm:mt-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
             Transforming Communities Through Action
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mt-4 sm:mt-6 max-w-2xl mx-auto">

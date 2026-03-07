@@ -39,11 +39,11 @@ export async function createSession(userId: number) {
 
   await db.query(`
     CREATE TABLE IF NOT EXISTS sessions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       user_id integer NOT NULL,
       token text NOT NULL UNIQUE,
-      expires_at datetime NOT NULL,
-      created_at datetime NOT NULL DEFAULT (datetime('now'))
+      expires_at timestamptz NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
     )
   `)
 
@@ -57,13 +57,44 @@ export async function createSession(userId: number) {
 
 export async function getUserFromSession(token: string) {
   const db = getDb()
+
+  // Ensure sessions table exists (this is required for both Neon and local JSON modes)
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS sessions (
+      id SERIAL PRIMARY KEY,
+      user_id integer NOT NULL,
+      token text NOT NULL UNIQUE,
+      expires_at timestamptz NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )
+  `)
+
+  // Ensure users table exists so session lookups don't fail on a fresh DB
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      name text NOT NULL,
+      email text NOT NULL UNIQUE,
+      password_hash text NOT NULL,
+      avatar text,
+      phone text,
+      address text,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )
+  `)
+
   const res = await db.query(
-    `SELECT u.id, u.email, u.name
+    `SELECT u.*
      FROM sessions s
      JOIN users u ON u.id = s.user_id
      WHERE s.token = $1 AND s.expires_at > $2`,
     [token, new Date().toISOString()],
   )
 
-  return res.rows[0] ?? null
+  const row = res.rows[0]
+  if (!row) return null
+
+  // Never expose password hashes to the client
+  const { password_hash, ...user } = row as any
+  return user
 }

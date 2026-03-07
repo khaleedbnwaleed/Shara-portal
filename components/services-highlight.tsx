@@ -30,7 +30,7 @@ export default function ServicesHighlight() {
             return (
               <div key={index} className="flex gap-3 sm:gap-4 hover:scale-105 transition-transform">
                 <div className="flex-shrink-0">
-                  <Icon size={36} sm:size={48} className="text-accent" />
+                  <Icon size={36} className="text-accent w-9 h-9 sm:w-12 sm:h-12" />
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold mb-2">{service.title}</h3>

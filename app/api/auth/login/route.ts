@@ -17,11 +17,11 @@ export async function POST(request: Request) {
 
     await db.query(`
       CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
         name text NOT NULL,
         email text NOT NULL UNIQUE,
         password_hash text NOT NULL,
-        created_at datetime NOT NULL DEFAULT (datetime('now'))
+        created_at timestamptz NOT NULL DEFAULT now()
       )
     `)
 

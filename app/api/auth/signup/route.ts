@@ -18,19 +18,27 @@ export async function POST(request: Request) {
 
     await db.query(`
       CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
         name text NOT NULL,
         email text NOT NULL UNIQUE,
         password_hash text NOT NULL,
-        created_at datetime NOT NULL DEFAULT (datetime('now'))
+        avatar text,
+        phone text,
+        address text,
+        created_at timestamptz NOT NULL DEFAULT now()
       )
     `)
+
+    // Ensure schema includes optional profile fields (for existing DBs)
+    await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar text')
+    await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS phone text')
+    await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS address text')
 
     const passwordHash = await hashPassword(data.password)
 
     const result = await db.query(
-      'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3)',
-      [data.name, data.email.toLowerCase(), passwordHash],
+      'INSERT INTO users (name, email, password_hash, avatar, phone, address) VALUES ($1, $2, $3, $4, $5, $6)',
+      [data.name, data.email.toLowerCase(), passwordHash, null, null, null],
     )
 
     const userId = result.rows[0]?.id ?? result.rows[0]?.lastInsertRowid

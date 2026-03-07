@@ -2,45 +2,9 @@
 
 import Image from '@/components/NextImage';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 export default function Hero() {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    serviceType: '',
-    industryType: ''
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // build whatsapp url
-    const message = encodeURIComponent(
-      `New booking request:\nFull Name: ${formData.fullName}\nService Type: ${formData.serviceType}\nIndustry Type: ${formData.industryType}`
-    );
-    const waUrl = `https://wa.me/2348169525295?text=${message}`;
-
-    console.log('WhatsApp URL:', waUrl);
-
-    // attempt to open whatsapp link; some browsers may block popups so
-    // fall back to navigation if window.open returns null.
-    const newWindow = window.open(waUrl, '_blank');
-    if (!newWindow) {
-      window.location.href = waUrl;
-    }
-
-    // reset form and show a brief confirmation
-    setShowSuccess(true);
-    setFormData({ fullName: '', serviceType: '', industryType: '' });
-    setTimeout(() => setShowSuccess(false), 5000);
-  };
   return (
     <section
       id="home"
@@ -60,9 +24,9 @@ export default function Hero() {
 
       <div className="relative z-20 w-full h-full flex items-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto w-full py-12 sm:py-16 md:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 sm:gap-8 lg:gap-12 items-center">
             {/* Left Content */}
-            <div className="text-white space-y-5 sm:space-y-7 text-center lg:text-left order-2 lg:order-1">
+            <div className="text-white space-y-5 sm:space-y-7 text-center lg:text-left">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
                 Empowering Responsible Waste Management
               </h1>
@@ -70,103 +34,19 @@ export default function Hero() {
                 Join us in transforming waste into valuable resources. Tech-driven solutions for a sustainable future.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 justify-center lg:justify-start">
-                <button className="px-6 sm:px-8 py-3 sm:py-3.5 bg-accent text-accent-foreground rounded-lg font-semibold hover:opacity-90 transition-all hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base min-h-12">
-                  Book Now
+                <Link
+                  href="/signup"
+                  className="px-6 sm:px-8 py-3 sm:py-3.5 bg-accent text-accent-foreground rounded-lg font-semibold hover:opacity-90 transition-all hover:scale-105 flex items-center justify-center gap-2 text-sm sm:text-base min-h-12"
+                >
+                  Get Started
                   <ArrowRight size={18} className="hidden sm:block" />
-                </button>
+                </Link>
                 <Link
                   href="/volunteer"
                   className="px-6 sm:px-8 py-3 sm:py-3.5 bg-white/20 text-white rounded-lg font-semibold hover:bg-white/30 transition-colors border border-white/40 text-sm sm:text-base min-h-12 flex items-center justify-center"
                 >
                   Become Volunteer
                 </Link>
-              </div>
-            </div>
-
-            {/* Right Booking Form */}
-            <div className="order-1 lg:order-2 w-full max-w-md mx-auto lg:max-w-none">
-              <div className="relative rounded-xl sm:rounded-2xl p-5 sm:p-7 md:p-8 shadow-2xl bg-white">
-                {/* Success Message */}
-                {showSuccess && (
-                  <div className="absolute inset-0 bg-white z-30 flex flex-col items-center justify-center rounded-xl sm:rounded-2xl p-6 sm:p-8">
-                    <CheckCircle size={64} className="text-green-500 mb-4" />
-                    <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3 text-center">Booking Submitted!</h3>
-                    <p className="text-gray-600 text-center text-sm sm:text-base px-2">
-                      Your booking has been sent and we will get back to you shortly. Thank you for choosing Shara Eco Solutions
-                    </p>
-                  </div>
-                )}
-
-                {/* Form Content */}
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-primary mb-5 sm:mb-6">Quick Booking</h2>
-                  <form className="space-y-4" onSubmit={handleSubmit}>
-                    <div>
-                      <label className="block text-xs sm:text-sm font-semibold text-primary mb-2">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        placeholder="Your name"
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                        required
-                        disabled={isLoading}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs sm:text-sm font-semibold text-primary mb-2">
-                        Service Type *
-                      </label>
-                      <select 
-                        name="serviceType"
-                        value={formData.serviceType}
-                        onChange={handleInputChange}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none"
-                        required
-                        disabled={isLoading}
-                      >
-                        <option>Select Service</option>
-                        <option>Waste Collection</option>
-                        <option>Residential Trash Collection</option>
-                        <option>Commercial Bin Rentals</option>
-                        <option>Incineration</option>
-                        <option>Cleaning Services</option>
-                        <option>Others</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs sm:text-sm font-semibold text-primary mb-2">
-                        Industry Type
-                      </label>
-                      <select 
-                        name="industryType"
-                        value={formData.industryType}
-                        onChange={handleInputChange}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none"
-                        disabled={isLoading}
-                      >
-                        <option>Select Industry</option>
-                        <option>Residential</option>
-                        <option>Commercial</option>
-                        <option>Industrial</option>
-                        <option>Educational</option>
-                      </select>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full py-3 sm:py-3.5 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base mt-6 min-h-12"
-                    >
-                      {isLoading ? 'Submitting...' : 'Book Service'}
-                    </button>
-                  </form>
-                </div>
               </div>
             </div>
           </div>
