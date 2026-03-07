@@ -11,7 +11,7 @@ export default function DashboardShell({ user, children }: DashboardShellProps) 
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex min-h-screen max-w-7xl">
-        <aside className="hidden w-72 flex-col bg-sidebar text-sidebar-foreground shadow-lg lg:flex">
+        <aside className="w-72 flex flex-col bg-sidebar text-sidebar-foreground shadow-lg">
           <div className="flex h-20 items-center px-6 border-b border-sidebar-border">
             <div className="flex items-center gap-3">
               <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
