@@ -2,7 +2,6 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { getUserFromSession } from '@/lib/auth'
-import { getDbInfo } from '@/lib/db'
 import { getUserBookings, getUserVolunteerApplications, getUserBinRequests } from '@/lib/dashboard'
 import BookingChart from '@/components/dashboard/BookingChart'
 import BinRequestChart from '@/components/dashboard/BinRequestChart'
@@ -45,12 +44,6 @@ export default async function DashboardPage() {
   const volunteerApplications = await getUserVolunteerApplications(user.id)
   const binRequests = await getUserBinRequests(user.id)
 
-  const dbInfo = getDbInfo()
-  const dbLabel = dbInfo.mode === 'neon' ? 'Neon DB' : 'Local JSON DB'
-  const dbDescription =
-    dbInfo.mode === 'neon'
-      ? 'Connected to Neon/Postgres database.'
-      : 'Using local data.json (development fallback).'
 
   return (
     <DashboardShell user={user}>
@@ -60,9 +53,7 @@ export default async function DashboardPage() {
           <p className="text-sm text-muted-foreground">
             Manage your profile, bookings, and volunteer applications from one place.
           </p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Database: <span className="font-medium">{dbLabel}</span> — {dbDescription}
-          </p>
+          
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -73,7 +64,7 @@ export default async function DashboardPage() {
               className="w-72 rounded-full border border-border bg-card py-2 pl-10 pr-4 text-sm shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
             <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-              🔍
+            
             </span>
           </div>
           <button className="relative rounded-full bg-card p-2 shadow-sm hover:bg-muted transition-colors">

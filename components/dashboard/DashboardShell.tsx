@@ -1,3 +1,4 @@
+import Header from '@/components/header'
 import NextImage from '@/components/NextImage'
 import Link from 'next/link'
 import { Box, CheckCircle2, ClipboardList, LayoutDashboard, Users } from 'lucide-react'
@@ -10,6 +11,7 @@ type DashboardShellProps = {
 export default function DashboardShell({ user, children }: DashboardShellProps) {
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <Header />
       <div className="mx-auto flex min-h-screen max-w-7xl">
         <aside className="hidden w-72 flex-col bg-sidebar text-sidebar-foreground shadow-lg lg:flex">
           <div className="flex h-20 items-center px-6 border-b border-sidebar-border">
