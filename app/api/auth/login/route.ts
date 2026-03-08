@@ -21,9 +21,12 @@ export async function POST(request: Request) {
         name text NOT NULL,
         email text NOT NULL UNIQUE,
         password_hash text NOT NULL,
+        role text NOT NULL DEFAULT 'user',
         created_at timestamptz NOT NULL DEFAULT now()
       )
     `)
+
+    await db.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS role text NOT NULL DEFAULT 'user'")
 
     const userResult = await db.query('SELECT id, password_hash FROM users WHERE email = $1', [
       data.email.toLowerCase(),

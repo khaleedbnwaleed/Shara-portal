@@ -59,10 +59,11 @@ function createJsonDb(): QueryClient {
 
       // Insert user
       if (/insert into users/i.test(sql)) {
-        const [name, email, password_hash, avatar, phone, address] = params as [
+        const [name, email, password_hash, avatar, phone, address, role] = params as [
           string,
           string,
           string,
+          string | null | undefined,
           string | null | undefined,
           string | null | undefined,
           string | null | undefined,
@@ -76,6 +77,7 @@ function createJsonDb(): QueryClient {
           avatar: avatar ?? null,
           phone: phone ?? null,
           address: address ?? null,
+          role: role ?? 'user',
           created_at: new Date().toISOString(),
         })
         writeData(db)
@@ -120,6 +122,39 @@ function createJsonDb(): QueryClient {
         writeData(db)
         return { rows: [] }
       }
+
+      // Delete user by id
+      if (/delete from users/i.test(sql)) {
+        const id = params?.[0] as number
+        db.users = db.users.filter((u) => u.id !== id)
+        writeData(db)
+        return { rows: [] }
+      }
+
+      // Delete booking by id
+      if (/delete from bookings/i.test(sql)) {
+        const id = params?.[0] as number
+        db.bookings = db.bookings.filter((b) => b.id !== id)
+        writeData(db)
+        return { rows: [] }
+      }
+
+      // Delete volunteer by id
+      if (/delete from volunteers/i.test(sql)) {
+        const id = params?.[0] as number
+        db.volunteers = db.volunteers.filter((v) => v.id !== id)
+        writeData(db)
+        return { rows: [] }
+      }
+
+      // Delete bin request by id
+      if (/delete from bin_requests/i.test(sql)) {
+        const id = params?.[0] as number
+        db.binRequests = db.binRequests.filter((b) => b.id !== id)
+        writeData(db)
+        return { rows: [] }
+      }
+
       // Update user fields
       if (/update users set/i.test(sql)) {
         const id = params?.[params.length - 1] as number
@@ -248,7 +283,9 @@ function resolveDatabaseUrl(): string | undefined {
 
 export function getDbInfo() {
   const connectionString = resolveDatabaseUrl()
-  const forceJson = process.env.USE_LOCAL_DB === 'true'
+  // Default to local JSON in development so the project works out of the box.
+  // In production, it will use the configured database URL unless USE_LOCAL_DB=true.
+  const forceJson = process.env.USE_LOCAL_DB === 'true' || process.env.NODE_ENV !== 'production'
 
   const usingLocal = !connectionString || forceJson
   return {

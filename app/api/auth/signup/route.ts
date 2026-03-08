@@ -25,6 +25,7 @@ export async function POST(request: Request) {
         avatar text,
         phone text,
         address text,
+        role text NOT NULL DEFAULT 'user',
         created_at timestamptz NOT NULL DEFAULT now()
       )
     `)
@@ -33,6 +34,7 @@ export async function POST(request: Request) {
     await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar text')
     await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS phone text')
     await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS address text')
+    await db.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS role text NOT NULL DEFAULT 'user'")
 
     const passwordHash = await hashPassword(data.password)
 

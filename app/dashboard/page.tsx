@@ -42,10 +42,19 @@ export default async function DashboardPage() {
 
   const userInitial = user.name?.[0]?.toUpperCase() ?? ''
 
+  // If the user is an admin, show the admin dashboard
+  if (user.role === 'admin') {
+    const AdminDashboard = (await import('@/components/dashboard/AdminDashboard')).default
+    return (
+      <DashboardShell user={user}>
+        <AdminDashboard />
+      </DashboardShell>
+    )
+  }
+
   const bookings = await getUserBookings(user.id)
   const volunteerApplications = await getUserVolunteerApplications(user.id)
   const binRequests = await getUserBinRequests(user.id)
-
 
   return (
     <DashboardShell user={user}>

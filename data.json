@@ -2,9 +2,10 @@
   "users": [
     {
       "id": 1,
-      "name": "Test User",
-      "email": "test2@example.com",
-      "password_hash": "3c014d10aa36ef20524c67ec21510153:07186a6404ef999b9ebc667ff999648f498f6a8c4879ed9cac5ae9d3a727ea0dd9102f920a36b6cb6b73c0b3612a92106c4960b4aef472952072d7c7d2f8b86f",
+      "name": "Shara Ecosolutions",
+      "email": "sharaecosolutions@gmail.com",
+      "password_hash": "d04bc36d0d1113dcd390e6b79f5598f6:25b46867e65505c58b197852e0ee6e9e87b3478789979c727f0e716c0aae4cdcdd30e809aaf00c3046804385d606d4546b29f1bd8bebb02954828406a35b9bca",
+      "role": "admin",
       "created_at": "2026-03-06T23:36:44.749Z"
     },
     {

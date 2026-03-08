@@ -32,6 +32,10 @@ export function createSessionToken() {
   return randomBytes(32).toString('hex')
 }
 
+export function isAdminUser(user: any) {
+  return user?.role === 'admin'
+}
+
 export async function createSession(userId: number) {
   const token = createSessionToken()
   const db = getDb()
@@ -79,9 +83,13 @@ export async function getUserFromSession(token: string) {
       avatar text,
       phone text,
       address text,
+      role text NOT NULL DEFAULT 'user',
       created_at timestamptz NOT NULL DEFAULT now()
     )
   `)
+
+  // Ensure schema includes role column
+  await db.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS role text NOT NULL DEFAULT 'user'")
 
   const res = await db.query(
     `SELECT u.*
@@ -96,5 +104,8 @@ export async function getUserFromSession(token: string) {
 
   // Never expose password hashes to the client
   const { password_hash, ...user } = row as any
-  return user
+
+  // Ensure we always have a role set (for older records without it)
+  const role = (user as any).role || (user.email === 'sharaecosolutions@gmail.com' ? 'admin' : 'user')
+  return { ...user, role }
 }

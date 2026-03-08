@@ -1,5 +1,32 @@
 import { getDb } from './db'
 
+export async function getAllUsers() {
+  const db = getDb()
+
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      name text NOT NULL,
+      email text NOT NULL UNIQUE,
+      password_hash text NOT NULL,
+      avatar text,
+      phone text,
+      address text,
+      role text NOT NULL DEFAULT 'user',
+      created_at timestamptz NOT NULL DEFAULT now()
+    )
+  `)
+
+  const result = await db.query('SELECT id, name, email, role, created_at FROM users ORDER BY id DESC')
+  return result.rows
+}
+
+export async function deleteUser(userId: number) {
+  const db = getDb()
+  await db.query('DELETE FROM users WHERE id = $1', [userId])
+  return true
+}
+
 export async function getUserBookings(userId?: number) {
   const db = getDb()
 
