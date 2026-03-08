@@ -1,9 +1,9 @@
 'use client'
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
-import { format, subMonths, parseISO } from 'date-fns'
+import { format, subMonths, parseISO, isValid } from 'date-fns'
 
-type Booking = { created_at: string }
+type Booking = { created_at: string | Date | null | undefined }
 
 function getMonthlyData(bookings: Booking[]) {
   const now = new Date()
@@ -18,7 +18,14 @@ function getMonthlyData(bookings: Booking[]) {
   })
 
   const counts = bookings.reduce<Record<string, number>>((acc, booking) => {
-    const monthKey = format(parseISO(booking.created_at), 'yyyy-MM')
+    const createdAt = booking?.created_at
+    if (!createdAt) return acc
+
+    const parsed =
+      typeof createdAt === 'string' ? parseISO(createdAt) : new Date(createdAt)
+    if (!isValid(parsed)) return acc
+
+    const monthKey = format(parsed, 'yyyy-MM')
     acc[monthKey] = (acc[monthKey] ?? 0) + 1
     return acc
   }, {})

@@ -40,6 +40,8 @@ export default async function DashboardPage() {
     redirect('/login')
   }
 
+  const userInitial = user.name?.[0]?.toUpperCase() ?? ''
+
   const bookings = await getUserBookings(user.id)
   const volunteerApplications = await getUserVolunteerApplications(user.id)
   const binRequests = await getUserBinRequests(user.id)
@@ -49,7 +51,7 @@ export default async function DashboardPage() {
     <DashboardShell user={user}>
       <header className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Welcome back, {user.name}!</h1>
+          <h1 className="text-3xl font-bold">Welcome back, {user.name || 'User'}!</h1>
           <p className="text-sm text-muted-foreground">
             Manage your profile, bookings, and volunteer applications from one place.
           </p>
@@ -75,7 +77,7 @@ export default async function DashboardPage() {
           </button>
           <div className="flex items-center gap-2 rounded-full bg-card px-3 py-2 shadow-sm">
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-primary">
-              {user.name[0].toUpperCase()}
+              {userInitial}
             </span>
             <span className="text-sm font-medium">{user.name}</span>
           </div>

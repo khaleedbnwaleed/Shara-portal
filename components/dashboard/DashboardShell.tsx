@@ -12,6 +12,7 @@ type DashboardShellProps = {
 
 export default function DashboardShell({ user, children }: DashboardShellProps) {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
+  const userInitial = user.name?.[0]?.toUpperCase() ?? ''
 
   const nav = (
     <aside className="w-72 flex flex-col bg-sidebar text-sidebar-foreground shadow-lg">
@@ -23,7 +24,7 @@ export default function DashboardShell({ user, children }: DashboardShellProps) 
               <img src={user.avatar} alt="Your avatar" className="h-10 w-10 rounded-full object-cover" />
             ) : (
               <span className="text-base font-semibold text-primary">
-                {user.name[0].toUpperCase()}
+                {userInitial}
               </span>
             )}
           </div>
@@ -80,7 +81,7 @@ export default function DashboardShell({ user, children }: DashboardShellProps) 
               </div>
             ) : (
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-primary">
-                {user.name[0].toUpperCase()}
+                {userInitial}
               </div>
             )}
             <div>

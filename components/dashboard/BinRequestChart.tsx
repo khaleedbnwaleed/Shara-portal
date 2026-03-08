@@ -1,9 +1,9 @@
 'use client'
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
-import { format, subMonths, parseISO } from 'date-fns'
+import { format, subMonths, parseISO, isValid } from 'date-fns'
 
-type BinRequest = { created_at: string }
+type BinRequest = { created_at: string | null | undefined }
 
 function getMonthlyData(binRequests: BinRequest[]) {
   const now = new Date()
@@ -18,7 +18,11 @@ function getMonthlyData(binRequests: BinRequest[]) {
   })
 
   const counts = binRequests.reduce<Record<string, number>>((acc, request) => {
-    const monthKey = format(parseISO(request.created_at), 'yyyy-MM')
+    if (!request?.created_at) return acc
+    const parsed = parseISO(request.created_at)
+    if (!isValid(parsed)) return acc
+
+    const monthKey = format(parsed, 'yyyy-MM')
     acc[monthKey] = (acc[monthKey] ?? 0) + 1
     return acc
   }, {})
