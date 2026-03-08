@@ -37,11 +37,15 @@ export async function POST(request: Request) {
     const passwordHash = await hashPassword(data.password)
 
     const result = await db.query(
-      'INSERT INTO users (name, email, password_hash, avatar, phone, address) VALUES ($1, $2, $3, $4, $5, $6)',
+      'INSERT INTO users (name, email, password_hash, avatar, phone, address) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
       [data.name, data.email.toLowerCase(), passwordHash, null, null, null],
     )
 
-    const userId = result.rows[0]?.id ?? result.rows[0]?.lastInsertRowid
+    const userId = result.rows[0]?.id
+    if (!userId) {
+      throw new Error('Unable to determine new user id')
+    }
+
     const sessionToken = await createSession(userId)
 
     const response = NextResponse.json({ ok: true })
