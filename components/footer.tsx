@@ -104,31 +104,40 @@ export default function Footer() {
               &copy; 2026 Shara Eco Solutions Ltd. All rights reserved.
             </p>
 
-            <div className="flex gap-4">
-              {[
-                { icon: Facebook, href: 'https://web.facebook.com/profile.php?id=61576225553979' },
-                { icon: Twitter, href: '#' },
-                { icon: Instagram, href: '#' },
-                { icon: Linkedin, href: '#' },
-              ].map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className="p-2 bg-primary/20 rounded-full hover:bg-accent hover:text-neutral-dark transition-colors"
-                    aria-label="Social media link"
-                  >
-                    <Icon size={18} />
-                  </a>
-                );
-              })}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="flex gap-4">
+                {[
+                  { icon: Facebook, href: 'https://web.facebook.com/profile.php?id=61576225553979' },
+                  { icon: Twitter, href: '#' },
+                  { icon: Instagram, href: '#' },
+                  { icon: Linkedin, href: '#' },
+                ].map((social, index) => {
+                  const Icon = social.icon
+                  return (
+                    <a
+                      key={index}
+                      href={social.href}
+                      className="p-2 bg-primary/20 rounded-full hover:bg-accent hover:text-neutral-dark transition-colors"
+                      aria-label="Social media link"
+                    >
+                      <Icon size={18} />
+                    </a>
+                  )
+                })}
+                <a
+                  href="https://wa.me/2348169525295"
+                  className="p-2 bg-primary/20 rounded-full hover:bg-accent hover:text-neutral-dark transition-colors"
+                  aria-label="WhatsApp"
+                >
+                  <i className="bi bi-whatsapp text-2xl"></i>
+                </a>
+              </div>
+
               <a
-                href="https://wa.me/2348169525295"
-                className="p-2 bg-primary/20 rounded-full hover:bg-accent hover:text-neutral-dark transition-colors"
-                aria-label="WhatsApp"
+                href="/admin"
+                className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
               >
-                <i className="bi bi-whatsapp text-2xl"></i>
+                Admin dashboard
               </a>
             </div>
           </div>
