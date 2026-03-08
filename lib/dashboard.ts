@@ -1,6 +1,6 @@
 import { getDb } from './db'
 
-export async function getUserBookings(userId: number) {
+export async function getUserBookings(userId?: number) {
   const db = getDb()
 
   await db.query(`
@@ -14,11 +14,14 @@ export async function getUserBookings(userId: number) {
     )
   `)
 
-  const result = await db.query('SELECT * FROM bookings WHERE user_id = $1 ORDER BY id DESC', [userId])
+  const query = userId != null ? 'SELECT * FROM bookings WHERE user_id = $1 ORDER BY id DESC' : 'SELECT * FROM bookings ORDER BY id DESC'
+  const params = userId != null ? [userId] : []
+
+  const result = await db.query(query, params)
   return result.rows
 }
 
-export async function getUserVolunteerApplications(userId: number) {
+export async function getUserVolunteerApplications(userId?: number) {
   const db = getDb()
 
   await db.query(`
@@ -43,11 +46,14 @@ export async function getUserVolunteerApplications(userId: number) {
     )
   `)
 
-  const result = await db.query('SELECT * FROM volunteers WHERE user_id = $1 ORDER BY id DESC', [userId])
+  const query = userId != null ? 'SELECT * FROM volunteers WHERE user_id = $1 ORDER BY id DESC' : 'SELECT * FROM volunteers ORDER BY id DESC'
+  const params = userId != null ? [userId] : []
+
+  const result = await db.query(query, params)
   return result.rows
 }
 
-export async function getUserBinRequests(userId: number) {
+export async function getUserBinRequests(userId?: number) {
   const db = getDb()
 
   await db.query(`
@@ -67,6 +73,9 @@ export async function getUserBinRequests(userId: number) {
   await db.query('ALTER TABLE bin_requests ADD COLUMN IF NOT EXISTS pickup_date timestamptz')
   await db.query('ALTER TABLE bin_requests ADD COLUMN IF NOT EXISTS notes text')
 
-  const result = await db.query('SELECT * FROM bin_requests WHERE user_id = $1 ORDER BY id DESC', [userId])
+  const query = userId != null ? 'SELECT * FROM bin_requests WHERE user_id = $1 ORDER BY id DESC' : 'SELECT * FROM bin_requests ORDER BY id DESC'
+  const params = userId != null ? [userId] : []
+
+  const result = await db.query(query, params)
   return result.rows
 }

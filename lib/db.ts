@@ -89,6 +89,11 @@ function createJsonDb(): QueryClient {
         return { rows: user ? [user] : [] }
       }
 
+      // Select all users
+      if (/select .* from users/i.test(sql) && !/where/i.test(sql)) {
+        return { rows: db.users }
+      }
+
       // Insert session
       if (/insert into sessions/i.test(sql)) {
         const [userId, token, expiresAt] = params as [number, string, string]
