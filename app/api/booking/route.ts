@@ -36,6 +36,9 @@ export async function POST(request: NextRequest) {
       )
     `)
 
+    // Ensure older schema versions have the notes column
+    await db.query('ALTER TABLE bookings ADD COLUMN IF NOT EXISTS notes text')
+
     await db.query(
       'INSERT INTO bookings (user_id, full_name, service_type, industry_type, notes) VALUES ($1, $2, $3, $4, $5)',
       [user?.id ?? null, data.fullName, data.serviceType, data.industryType, data.notes ?? null],
