@@ -127,7 +127,7 @@ const categories: TeamCategory[] = [
       },
       {
         id: 17,
-        name: 'Muazzam Ibrahim',
+        name: 'Ibrahim Muazzam Yahaya',
         role: 'Robotics Engineer',
         image: '/asset/image/muazzam.jpeg',
         social: {
