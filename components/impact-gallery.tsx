@@ -40,10 +40,10 @@ export default function ImpactGallery() {
   ];
 
   return (
-    <section id="impact" className="py-20 bg-secondary">
+    <section id="impact" className="py-10 sm:py-14 bg-secondary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-10 sm:mb-12">
           <span className="inline-block px-3 sm:px-4 py-2 bg-white text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
             Our Impact
           </span>

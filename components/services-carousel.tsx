@@ -120,13 +120,13 @@ export default function ServicesCarousel() {
   );
 
   return (
-    <section id="services" className="bg-muted py-12 sm:py-16 lg:py-20">
+    <section id="services" className="bg-muted py-10 sm:py-14 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 sm:mb-16 text-center">
+        <div className="mb-10 sm:mb-12 text-center">
           <span className="inline-block px-3 sm:px-4 py-2 bg-white text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
             Our Services
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
             What We Offer
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">

@@ -27,9 +27,9 @@ export default function WhyUs() {
   ];
 
   return (
-    <section id="why-us" className="bg-secondary py-20">
+    <section id="why-us" className="bg-secondary py-12 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center gap-10 mb-12 sm:mb-16">
+        <div className="flex flex-col items-center text-center gap-10 mb-10 sm:mb-12">
           <div className="space-y-6 max-w-2xl">
             <span className="inline-block px-3 sm:px-4 py-2 bg-white text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
               Why Choose Us
@@ -44,7 +44,6 @@ export default function WhyUs() {
               Every customer receives transparent reporting, clear pricing, and a dedicated support team—so you know exactly what you’re getting and why it matters.
             </p>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {features.map((feature, index) => {
               const Icon = feature.icon;

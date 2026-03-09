@@ -78,14 +78,14 @@ export default function Projects() {
   const categories = ['All', 'Community', 'Infrastructure', 'Services', 'Education', 'Processing', 'Training'];
 
   return (
-    <section id="projects" className="py-12 sm:py-16 md:py-24 bg-muted">
+    <section id="projects" className="py-10 sm:py-14 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-12 sm:mb-16 text-center">
+        <div className="mb-10 sm:mb-12 text-center">
           <span className="inline-block px-3 sm:px-4 py-2 bg-white text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 sm:mb-6">
             Our Projects
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 sm:mb-6">
             Transforming Communities Through Action
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
