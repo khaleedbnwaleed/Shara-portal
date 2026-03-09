@@ -6,7 +6,18 @@ export type QueryClient = {
   query: (text: string, params?: unknown[]) => Promise<{ rows: any[] }>
 }
 
-type DbUser = { id: number; name: string; email: string; password_hash: string; created_at: string }
+type DbUser = {
+  id: number
+  name: string
+  email: string
+  password_hash: string
+  avatar?: string | null
+  phone?: string | null
+  address?: string | null
+  role?: string
+  created_at: string
+}
+
 type DbSession = { id: number; user_id: number; token: string; expires_at: string; created_at: string }
 
 type DatabaseShape = {
