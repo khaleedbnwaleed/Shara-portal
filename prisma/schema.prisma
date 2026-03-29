@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model BootcampRegistration {
+  id                   String   @id @default(cuid())
+  fullName             String
+  email                String
+  phone                String
+  experienceLevel      String   // 'Beginner', 'Intermediate', 'Advanced'
+  daysAttending        String[] // Array of day IDs
+  dietaryRestrictions  String?
+  whyInterested        String
+  
+  // Payment Information
+  paymentReceiptUrl    String   // URL of uploaded payment receipt
+  paymentReceiptName   String   // Original filename
+  paymentStatus        String   @default("pending") // 'pending', 'verified', 'rejected'
+  paymentAmount        Int      @default(1000) // Amount in naira
+  paymentVerifiedAt    DateTime?
+  
+  // Timestamps
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@index([email])
+  @@index([paymentStatus])
+  @@index([createdAt])
+}

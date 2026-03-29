@@ -60,3 +60,9 @@ export async function getAllBinRequests() {
   const { getUserBinRequests } = await import('./dashboard')
   return getUserBinRequests()
 }
+
+export async function getAllBootcampRegistrations() {
+  const db = getDb()
+  const result = await db.query('SELECT * FROM bootcamp_registrations ORDER BY created_at DESC')
+  return result.rows
+}

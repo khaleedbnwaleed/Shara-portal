@@ -26,13 +26,14 @@ type DatabaseShape = {
   volunteers: Array<Record<string, any>>
   bookings: Array<Record<string, any>>
   binRequests: Array<Record<string, any>>
+  bootcampRegistrations: Array<Record<string, any>>
 }
 
 const DB_FILE = path.resolve(process.cwd(), 'data.json')
 
 function readData(): DatabaseShape {
   if (!fs.existsSync(DB_FILE)) {
-    const initial: DatabaseShape = { users: [], sessions: [], volunteers: [], bookings: [], binRequests: [] }
+    const initial: DatabaseShape = { users: [], sessions: [], volunteers: [], bookings: [], binRequests: [], bootcampRegistrations: [] }
     fs.writeFileSync(DB_FILE, JSON.stringify(initial, null, 2))
     return initial
   }
@@ -45,6 +46,7 @@ function readData(): DatabaseShape {
     volunteers: data.volunteers ?? [],
     bookings: data.bookings ?? [],
     binRequests: data.binRequests ?? [],
+    bootcampRegistrations: data.bootcampRegistrations ?? [],
   }
 }
 
@@ -166,6 +168,14 @@ function createJsonDb(): QueryClient {
         return { rows: [] }
       }
 
+      // Delete bootcamp registration by id
+      if (/delete from bootcamp_registrations/i.test(sql)) {
+        const id = params?.[0] as number
+        db.bootcampRegistrations = db.bootcampRegistrations.filter((b) => b.id !== id)
+        writeData(db)
+        return { rows: [] }
+      }
+
       // Update user fields
       if (/update users set/i.test(sql)) {
         const id = params?.[params.length - 1] as number
@@ -272,6 +282,34 @@ function createJsonDb(): QueryClient {
         const filtered = typeof userId === 'number'
           ? db.binRequests.filter((b) => b.user_id === userId)
           : db.binRequests
+        return { rows: filtered }
+      }
+
+      // Insert bootcamp registration
+      if (/insert into bootcamp_registrations/i.test(sql)) {
+        const fields = text
+          .split('(')[1]
+          .split(')')[0]
+          .split(',')
+          .map((f) => f.trim())
+        const values = params || []
+        const record: any = {}
+        fields.forEach((field, idx) => {
+          record[field] = values[idx]
+        })
+        record.id = nextId(db.bootcampRegistrations as any)
+        record.created_at = new Date().toISOString()
+        db.bootcampRegistrations.push(record)
+        writeData(db)
+        return { rows: [{ id: record.id }] }
+      }
+
+      // Select bootcamp registrations
+      if (/from bootcamp_registrations/i.test(sql)) {
+        const userId = params?.[0] as number | undefined
+        const filtered = typeof userId === 'number'
+          ? db.bootcampRegistrations.filter((b) => b.user_id === userId)
+          : db.bootcampRegistrations
         return { rows: filtered }
       }
 

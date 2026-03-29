@@ -38,6 +38,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/bootcamp" className="hover:text-accent transition-colors py-1 block">
+                  Bootcamp
+                </a>
+              </li>
+              <li>
                 <a href="#" className="hover:text-accent transition-colors py-1 block">
                   Careers
                 </a>

@@ -1,11 +1,12 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 import AdminShell from '@/components/admin/AdminShell'
 import StatCard from '@/components/dashboard/StatCard'
-import { Bell, ClipboardList, Users, Box } from 'lucide-react'
+import { Bell, ClipboardList, Users, Box, GraduationCap } from 'lucide-react'
 import { getUserFromSession } from '@/lib/auth'
-import { getAllUsers, getAllBookings, getAllVolunteerApplications, getAllBinRequests } from '@/lib/admin'
+import { getAllUsers, getAllBookings, getAllVolunteerApplications, getAllBinRequests, getAllBootcampRegistrations } from '@/lib/admin'
 
 export default async function AdminPage() {
   const cookieStore = await cookies()
@@ -33,11 +34,12 @@ export default async function AdminPage() {
     redirect('/login')
   }
 
-  const [users, bookings, volunteers, binRequests] = await Promise.all([
+  const [users, bookings, volunteers, binRequests, bootcampRegistrations] = await Promise.all([
     getAllUsers(),
     getAllBookings(),
     getAllVolunteerApplications(),
     getAllBinRequests(),
+    getAllBootcampRegistrations(),
   ])
 
   return (
@@ -51,11 +53,14 @@ export default async function AdminPage() {
         </div>
       </header>
 
-      <section className="grid gap-6 lg:grid-cols-4">
+      <section className="grid gap-6 lg:grid-cols-5">
         <StatCard icon={Users} title="Users" value={users.length} subtitle="Total registered accounts" />
         <StatCard icon={ClipboardList} title="Bookings" value={bookings.length} subtitle="Bookings submitted" />
         <StatCard icon={Bell} title="Volunteers" value={volunteers.length} subtitle="Volunteer applications" />
         <StatCard icon={Box} title="Bin requests" value={binRequests.length} subtitle="Bin requests submitted" />
+        <Link href="/admin/bootcamp-registrations" className="hover:opacity-80 transition-opacity">
+          <StatCard icon={GraduationCap} title="Bootcamp" value={bootcampRegistrations.length} subtitle="Bootcamp registrations" />
+        </Link>
       </section>
 
       <section className="mt-10">
