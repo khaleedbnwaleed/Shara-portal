@@ -9,23 +9,4 @@ datasource db {
   provider = "postgresql"
 }
 
-model BootcampRegistration {
-  id                     String   @id @default(cuid())
-  fullName               String
-  email                  String   @unique
-  phone                  String
-  experienceLevel        String
-  daysAttending          String[]
-  dietaryRestrictions    String?
-  whyInterested          String
-  paymentReceiptUrl      String
-  paymentReceiptName     String
-  paymentStatus          String   @default("pending")
-  paymentAmount          Int      @default(1000)
-  paymentVerifiedAt      DateTime?
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-
-  @@index([email])
-  @@index([createdAt])
-}
+// All models removed - using Google Form for bootcamp registrations instead
