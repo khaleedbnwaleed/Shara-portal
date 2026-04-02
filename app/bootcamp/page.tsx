@@ -137,7 +137,7 @@ export default function BootcampPage() {
               <p className="text-sm text-gray-500 mb-6">The certification fee is <strong>₦1,000</strong></p>
             </div>
             
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjhShX-L0aYAWLE_Rxj8_RtvECt25poaprcpODTAZ_FsFoSg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjhShX-L0aYAWLE_Rxj8_RtvECt25poaprcpODTAZ_FsFoSg/viewform" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="bg-green-600 hover:bg-green-700">
                 Apply Now
                 <ExternalLink className="ml-2 w-4 h-4" />
