@@ -229,6 +229,7 @@ export default function BootcampForm() {
                           <FormItem className="flex items-center space-x-2 space-y-0">
                             <FormControl>
                               <Checkbox
+                                id={day.id}
                                 checked={field.value?.includes(day.id)}
                                 onCheckedChange={(checked) => {
                                   const currentValue = field.value || []
@@ -240,7 +241,7 @@ export default function BootcampForm() {
                                 }}
                               />
                             </FormControl>
-                            <FormLabel className="font-normal cursor-pointer">{day.label}</FormLabel>
+                            <label htmlFor={day.id} className="font-normal cursor-pointer">{day.label}</label>
                           </FormItem>
                         )}
                       />
@@ -277,7 +278,7 @@ export default function BootcampForm() {
                   </FormDescription>
                   <FormControl>
                     <div className="mt-2">
-                      <label className="flex items-center justify-center w-full px-4 py-8 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition">
+                      <label htmlFor="paymentReceipt" className="flex items-center justify-center w-full px-4 py-8 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition">
                         <div className="flex flex-col items-center">
                           <Upload className="w-8 h-8 text-gray-400 mb-2" />
                           <span className="text-sm font-medium text-gray-700">
@@ -286,6 +287,7 @@ export default function BootcampForm() {
                           <span className="text-xs text-gray-500 mt-1">or drag and drop</span>
                         </div>
                         <input
+                          id="paymentReceipt"
                           type="file"
                           className="hidden"
                           accept=".jpg,.jpeg,.png,.pdf"
@@ -331,12 +333,16 @@ export default function BootcampForm() {
             render={({ field }) => (
               <FormItem className="flex items-start space-x-2 space-y-0">
                 <FormControl>
-                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  <Checkbox 
+                    id="agreeTerms"
+                    checked={field.value} 
+                    onCheckedChange={field.onChange} 
+                  />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel className="font-normal cursor-pointer">
+                  <label htmlFor="agreeTerms" className="font-normal cursor-pointer">
                     I confirm I have made the payment of ₦{CERTIFICATION_FEE.toLocaleString()} and agree to the terms and conditions *
-                  </FormLabel>
+                  </label>
                   <FormDescription>
                     We respect your privacy. Your information will only be used for bootcamp purposes.
                   </FormDescription>
