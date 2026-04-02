@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
-import BootcampForm from '@/components/bootcamp-form'
-import { CheckCircle, Users, Clock, Award, Leaf } from 'lucide-react'
+import { CheckCircle, Users, Clock, Award, Leaf, ExternalLink } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
   title: 'Sustainable Home Gardening Bootcamp | Shara Eco Solutions',
@@ -128,9 +128,22 @@ export default function BootcampPage() {
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Ready to Get Started?</h2>
           <p className="text-center text-gray-600 mb-12">
-            Join our next cohort and start your sustainable gardening journey. Apply now to secure your spot.
+            Join our next cohort and start your sustainable gardening journey. Click the button below to apply now and secure your spot.
           </p>
-          <BootcampForm />
+          
+          <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
+            <div className="mb-6">
+              <p className="text-gray-700 mb-4">Fill out our registration form to apply for the bootcamp.</p>
+              <p className="text-sm text-gray-500 mb-6">The certification fee is <strong>₦1,000</strong></p>
+            </div>
+            
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjhShX-L0aYAWLE_Rxj8_RtvECt25poaprcpODTAZ_FsFoSg/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                Apply Now
+                <ExternalLink className="ml-2 w-4 h-4" />
+              </Button>
+            </a>
+          </div>
         </div>
       </section>
 
