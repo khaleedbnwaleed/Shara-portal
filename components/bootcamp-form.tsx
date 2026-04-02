@@ -23,55 +23,40 @@ import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 
-const CERTIFICATION_FEE = 1000 // 1,000 naira
+const CERTIFICATION_FEE = 1000
 
-const bootcampSchema = z
-  .object({
-    fullName: z.string().min(2, 'Please enter your full name'),
-    email: z.string().email('Please enter a valid email'),
-    phone: z.string().min(10, 'Please enter a valid phone number'),
-    experienceLevel: z.enum(
-      ['Beginner', 'Intermediate', 'Advanced'],
-      { errorMap: () => ({ message: 'Please select your experience level' }) }
-    ),
-    daysAttending: z.array(z.string()).min(1, 'Please select at least one day'),
-    dietaryRestrictions: z.string().optional(),
-    whyInterested: z.string().min(10, 'Please tell us why you are interested (minimum 10 characters)'),
-    paymentReceipt: z.any().refine(
-      (files) => files?.length === 1,
-      'Payment receipt is required'
-    ),
-    agreeTerms: z.boolean().refine((val) => val === true, {
-      message: 'You must agree to the terms and conditions',
-    }),
-  })
+const bootcampSchema = z.object({
+  fullName: z.string().min(2, 'Full name is required'),
+  email: z.string().email('Valid email is required'),
+  phone: z.string().min(10, 'Valid phone number is required'),
+  experienceLevel: z.enum(['Beginner', 'Intermediate', 'Advanced']),
+  daysAttending: z.array(z.string()).min(1, 'Select at least one day'),
+  paymentReceipt: z.any().refine(
+    (files) => files?.length === 1,
+    'Payment receipt is required'
+  ),
+  agreeTerms: z.boolean().refine((val) => val === true, {
+    message: 'You must agree to terms and conditions',
+  }),
+})
 
 type BootcampFormValues = z.infer<typeof bootcampSchema>
-
-const daysOptions = [
-  { id: 'day1', label: 'Day 1 - Foundations of Sustainable Gardening (Understanding the Basics)' },
-  { id: 'day2', label: 'Day 2 - Planting Techniques and Garden Setup (From Seed to Garden)' },
-  { id: 'day3', label: 'Day 3 - Garden Maintenance, Harvest, and Sustainability (Growing, Protecting, and Sustaining)' },
-]
-
-
 
 export default function BootcampForm() {
   const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [receiptFileName, setReceiptFileName] = useState<string>('')
 
-  // Validate payment receipt file
   const validatePaymentReceipt = (file: File): string | null => {
     const MAX_SIZE = 5 * 1024 * 1024 // 5MB
     const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'application/pdf']
 
     if (file.size > MAX_SIZE) {
-      return 'Payment receipt must be less than 5MB'
+      return 'File must be less than 5MB'
     }
 
     if (!ALLOWED_TYPES.includes(file.type)) {
-      return 'Payment receipt must be a JPEG, PNG, or PDF file'
+      return 'Only JPEG, PNG, or PDF files are allowed'
     }
 
     return null
@@ -85,8 +70,6 @@ export default function BootcampForm() {
       phone: '',
       experienceLevel: 'Beginner',
       daysAttending: [],
-      dietaryRestrictions: '',
-      whyInterested: '',
       agreeTerms: false,
     },
   })
@@ -96,15 +79,11 @@ export default function BootcampForm() {
 
     try {
       const formData = new FormData()
-      
-      // Add all form fields
       formData.append('fullName', values.fullName)
       formData.append('email', values.email)
       formData.append('phone', values.phone)
       formData.append('experienceLevel', values.experienceLevel)
       formData.append('daysAttending', JSON.stringify(values.daysAttending))
-      formData.append('dietaryRestrictions', values.dietaryRestrictions || '')
-      formData.append('whyInterested', values.whyInterested)
       
       // Add payment receipt file
       const paymentReceipt = values.paymentReceipt[0]
@@ -117,30 +96,30 @@ export default function BootcampForm() {
         body: formData,
       })
 
-      const responseData = await res.json()
+      const data = await res.json()
 
       if (!res.ok) {
-        throw new Error(responseData.error || 'Failed to submit registration')
+        throw new Error(data.error || 'Registration failed')
       }
 
       toast({
-        title: 'Registration Successful!',
-        description: responseData.message || 'Thank you for registering for the 3-Day Sustainable Home Gardening Bootcamp. Your payment receipt has been received and is pending verification. You will receive a confirmation email shortly.',
+        title: 'Successfully Applied!',
+        description: 'Thank you for applying to the bootcamp. We will review your payment and contact you shortly to confirm your spot.',
       })
 
       form.reset()
       setReceiptFileName('')
-      
+
       // Redirect to success page
       setTimeout(() => {
         if (typeof window !== 'undefined') {
-          window.location.href = '/bootcamp/registration-success'
+          window.location.href = '/bootcamp/success'
         }
       }, 2000)
     } catch (error) {
       toast({
         title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to submit registration. Please try again.',
+        description: error instanceof Error ? error.message : 'Failed to submit application',
         variant: 'destructive',
       })
     } finally {
@@ -149,18 +128,13 @@ export default function BootcampForm() {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">3-Day Bootcamp on Sustainable Home Gardening</h1>
-        <p className="text-gray-600 mb-2 font-semibold">Theme: Grow What You Eat – Sustain the Future</p>
-        <p className="text-gray-600 text-sm mb-3">Learn to grow vegetables using low-cost and environmentally friendly methods, practice composting and water conservation, and establish a thriving home garden.</p>
-      </div>
-
+    <div className="w-full">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-white p-8 rounded-lg border border-gray-200">
+          
           {/* Personal Information Section */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Personal Information</h2>
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-gray-900">Your Information</h3>
 
             <FormField
               control={form.control}
@@ -205,9 +179,9 @@ export default function BootcampForm() {
             />
           </div>
 
-          {/* Bootcamp Details Section */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Bootcamp Details</h2>
+          {/* Bootcamp Preferences Section */}
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-gray-900">Bootcamp Details</h3>
 
             <FormField
               control={form.control}
@@ -218,11 +192,11 @@ export default function BootcampForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select your experience level" />
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Beginner">Beginner - No prior gardening experience</SelectItem>
+                      <SelectItem value="Beginner">Beginner - No gardening experience</SelectItem>
                       <SelectItem value="Intermediate">Intermediate - Some gardening experience</SelectItem>
                       <SelectItem value="Advanced">Advanced - Significant gardening experience</SelectItem>
                     </SelectContent>
@@ -239,12 +213,14 @@ export default function BootcampForm() {
                 <FormItem>
                   <FormLabel>Which Days Will You Attend? *</FormLabel>
                   <FormDescription>
-                    Day 1: Soil health, climate-smart practices, sustainable gardening foundations | 
-                    Day 2: Seed selection, planting techniques, water management, composting | 
-                    Day 3: Pest management, garden maintenance, harvesting, income opportunities
+                    Select the days that work best for you. We recommend attending all three days.
                   </FormDescription>
-                  <div className="space-y-3 mt-3">
-                    {daysOptions.map((day) => (
+                  <div className="space-y-3 mt-4">
+                    {[
+                      { id: 'day1', label: 'Day 1 - Soil Health & Fundamentals' },
+                      { id: 'day2', label: 'Day 2 - Planting & Composting' },
+                      { id: 'day3', label: 'Day 3 - Garden Planning & Harvest' },
+                    ].map((day) => (
                       <FormField
                         key={day.id}
                         control={form.control}
@@ -276,66 +252,18 @@ export default function BootcampForm() {
             />
           </div>
 
-          {/* Additional Information Section */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Additional Information</h2>
-
-            <FormField
-              control={form.control}
-              name="dietaryRestrictions"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Dietary Restrictions (Optional)</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Please let us know of any dietary restrictions (e.g., vegan, nut allergy, etc.)"
-                      className="resize-none"
-                      rows={2}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>This helps us arrange refreshments during the bootcamp</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="whyInterested"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Why Are You Interested in This Bootcamp? *</FormLabel>
-                  <FormDescription>
-                    Share what motivated you to join and how you plan to use what you learn.
-                  </FormDescription>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Tell us what motivated you to join this sustainable gardening bootcamp and how you plan to apply the knowledge (e.g., establish a home garden, improve nutrition, generate income, contribute to sustainability)?..."
-                      className="resize-none"
-                      rows={4}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
           {/* Payment Section */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Payment Details</h2>
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-gray-900">Payment Details</h3>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <h3 className="font-semibold text-amber-900 mb-3">Certification Fee: ₦{CERTIFICATION_FEE.toLocaleString()}</h3>
-              <div className="space-y-2 text-sm text-amber-800">
-                <p><strong>Bank Name:</strong> Sterling Bank</p>
-                <p><strong>Account Name:</strong> Shara Eco Solutions Ltd</p>
-                <p><strong>Account Number:</strong> 0132173778</p>
-                <p><strong>Amount:</strong> ₦{CERTIFICATION_FEE.toLocaleString()}</p>
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 space-y-3">
+              <div className="font-semibold text-amber-900">Certification Fee: ₦{CERTIFICATION_FEE.toLocaleString()}</div>
+              <div className="text-sm text-amber-800 space-y-1">
+                <div><strong>Bank Name:</strong> Sterling Bank</div>
+                <div><strong>Account Name:</strong> Shara Eco Solutions Ltd</div>
+                <div><strong>Account Number:</strong> 0132173778</div>
               </div>
-              <p className="text-xs text-amber-700 mt-3 italic">Please make a transfer using any bank and keep the payment receipt/confirmation.</p>
+              <p className="text-xs text-amber-700 italic">Please make a bank transfer and keep your payment receipt to upload below.</p>
             </div>
 
             <FormField
@@ -345,17 +273,17 @@ export default function BootcampForm() {
                 <FormItem>
                   <FormLabel>Upload Payment Receipt *</FormLabel>
                   <FormDescription>
-                    Upload a screenshot or PDF of your payment confirmation. Accepted formats: JPEG, PNG, PDF (Max 5MB)
+                    Upload a screenshot or PDF of your payment confirmation. Accepted: JPEG, PNG, PDF (Max 5MB)
                   </FormDescription>
                   <FormControl>
                     <div className="mt-2">
-                      <label className="flex items-center justify-center w-full px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition">
+                      <label className="flex items-center justify-center w-full px-4 py-8 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition">
                         <div className="flex flex-col items-center">
                           <Upload className="w-8 h-8 text-gray-400 mb-2" />
                           <span className="text-sm font-medium text-gray-700">
                             {receiptFileName || 'Click to upload payment receipt'}
                           </span>
-                          <span className="text-xs text-gray-500">or drag and drop</span>
+                          <span className="text-xs text-gray-500 mt-1">or drag and drop</span>
                         </div>
                         <input
                           type="file"
@@ -396,7 +324,7 @@ export default function BootcampForm() {
             />
           </div>
 
-          {/* Terms & Conditions */}
+          {/* Terms & Agreement */}
           <FormField
             control={form.control}
             name="agreeTerms"
@@ -407,23 +335,30 @@ export default function BootcampForm() {
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel className="font-normal cursor-pointer">
-                    I agree to the terms and conditions, have made the payment of ₦{CERTIFICATION_FEE.toLocaleString()}, and understand the bootcamp schedule *
+                    I confirm I have made the payment of ₦{CERTIFICATION_FEE.toLocaleString()} and agree to the terms and conditions *
                   </FormLabel>
-                  <FormDescription>We respect your privacy and will only use your information for bootcamp purposes. Your payment receipt will be verified.</FormDescription>
+                  <FormDescription>
+                    We respect your privacy. Your information will only be used for bootcamp purposes.
+                  </FormDescription>
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
 
           {/* Submit Button */}
-          <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? 'Submitting Registration...' : 'Submit Registration'}
-          </Button>
-
-          <p className="text-sm text-gray-500 text-center">
-            Questions? Contact us at sharaecosolutions@gmail.com or call +234 8169525295. We look forward to seeing you at the bootcamp and helping you grow your sustainable home garden!
-          </p>
+          <div className="pt-4">
+            <Button 
+              type="submit" 
+              size="lg" 
+              className="w-full bg-green-600 hover:bg-green-700"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting Application...' : 'Submit Application'}
+            </Button>
+            <p className="text-sm text-gray-500 text-center mt-4">
+              Your payment will be verified within 24 hours
+            </p>
+          </div>
         </form>
       </Form>
 
