@@ -185,7 +185,7 @@ export default function BootcampPage() {
                   </ul>
                 </div>
 
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjhShX-L0aYAWLE_Rxj8_RtvECt25poaprcpODTAZ_FsFoSg/viewform" target="_blank" rel="noopener noreferrer" className="block">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdG3V73B1CJAqIStjWubAa7CIkr5SxoJ_moYHLJ-Fb-DaA-oA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="block">
                   <Button size="lg" className="w-full bg-emerald-700 hover:bg-emerald-800 text-white">
                     Apply Now
                     <ExternalLink className="ml-2 w-4 h-4" />
