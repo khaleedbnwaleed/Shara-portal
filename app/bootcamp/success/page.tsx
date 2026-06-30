@@ -56,10 +56,10 @@ export default function BootcampSuccessPage() {
 
           <div className="space-y-3">
             <Button 
-              onClick={() => router.push('/bootcamp')} 
+              onClick={() => router.push('/greenschoolinnovation')} 
               className="w-full bg-green-600 hover:bg-green-700"
             >
-              Back to Bootcamp
+              Back to Green School Innovation
             </Button>
             <Button
               onClick={() => router.push('/')}
