@@ -7,12 +7,13 @@ export const metadata: Metadata = {
   description: 'Your internship application has been successfully submitted',
 }
 
-export default function InternshipSuccessPage({
+export default async function InternshipSuccessPage({
   searchParams,
 }: {
-  searchParams: { ref?: string }
+  searchParams: Promise<{ ref?: string }> | { ref?: string }
 }) {
-  const applicationRef = searchParams?.ref
+  const resolvedSearchParams = await Promise.resolve(searchParams)
+  const applicationRef = resolvedSearchParams?.ref
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -50,18 +51,6 @@ export default function InternshipSuccessPage({
               application has been successfully received. Our recruitment team will review your
               application and contact shortlisted applicants.
             </p>
-
-            {/* Application Reference - Only show if present */}
-            {applicationRef && (
-              <div className="bg-white rounded-lg p-6 border border-primary/20 mb-6">
-                <p className="text-sm text-muted-foreground mb-2">Application Reference Number</p>
-                <p className="text-3xl font-bold text-primary font-mono break-all">{applicationRef}</p>
-                <p className="text-xs text-muted-foreground mt-3">
-                  Please keep this reference number for your records. You may be contacted using the
-                  email address provided in your application.
-                </p>
-              </div>
-            )}
 
             <div className="bg-accent/10 border border-accent/20 rounded-lg p-4">
               <p className="text-sm text-foreground">

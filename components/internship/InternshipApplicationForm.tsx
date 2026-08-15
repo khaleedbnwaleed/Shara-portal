@@ -124,7 +124,7 @@ export function InternshipApplicationForm() {
         description: 'Your internship application has been successfully received.',
       })
 
-      router.push(`/internship/success?ref=${data.applicationRef}`)
+      router.push('/internship/success')
     } catch (error) {
       toast({
         title: 'Failed to Submit Application',
