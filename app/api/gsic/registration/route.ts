@@ -24,8 +24,10 @@ function writeFallbackApplication(application: Record<string, unknown>) {
 }
 
 export async function POST(request: Request) {
+  let body: any = {}
+
   try {
-    const body = await request.json()
+    body = await request.json()
 
     const {
       schoolName,

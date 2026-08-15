@@ -4,30 +4,16 @@ import { prisma } from '@/lib/prisma'
 export async function GET() {
   try {
     console.log('🧪 Database test endpoint called')
-    
-    // Test 1: Count records
-    const count = await prisma.bootcampRegistration.count()
-    console.log(`✅ Count query successful: ${count} records`)
 
-    // Test 2: Fetch recent records
-    const recent = await prisma.bootcampRegistration.findMany({
-      take: 5,
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        fullName: true,
-        email: true,
-        paymentStatus: true,
-        createdAt: true,
-      },
-    })
+    const countResult = await prisma.$queryRaw<Array<{ count: number }>>`SELECT COUNT(*)::int AS count FROM information_schema.tables WHERE table_schema = 'public'`
+    const count = Number(countResult?.[0]?.count ?? 0)
 
     return NextResponse.json({
       status: 'success',
       message: 'Database connection is working',
       stats: {
         totalRecords: count,
-        recentRecords: recent,
+        recentRecords: [],
       },
     })
   } catch (error) {

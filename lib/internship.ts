@@ -55,7 +55,7 @@ export const internshipApplicationSchema = z.object({
   climateTopicIdea: z.string().optional(),
   
   // Step 4: Availability
-  preferredStartDate: z.string().transform(str => new Date(str)),
+  preferredStartDate: z.string().min(1, 'Preferred start date is required'),
   availability: z.enum(['Part-time', 'Full-time']),
   workingArrangement: z.enum(['Remote']),
   

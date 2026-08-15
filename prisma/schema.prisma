@@ -1,12 +1,107 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model BootcampRegistration {
+  id                  String    @id
+  fullName            String
+  email               String
+  phone               String
+  experienceLevel     String
+  daysAttending       String[]
+  dietaryRestrictions String?
+  whyInterested       String
+  paymentReceiptUrl   String
+  paymentReceiptName  String
+  paymentStatus       String    @default("pending")
+  paymentAmount       Int       @default(1000)
+  paymentVerifiedAt   DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime
+
+  @@index([createdAt])
+  @@index([email])
+  @@index([paymentStatus])
+}
+
+model GsicRegistration {
+  id            Int       @id @default(autoincrement())
+  schoolName    String
+  schoolType    String
+  schoolAddress String
+  teacherName   String
+  teacherPhone  String
+  teacherEmail  String
+  studentOne    String
+  studentTwo    String
+  studentThree  String?
+  projectFocus  String
+  projectIdea   String
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model bin_requests {
+  id          Int       @id @default(autoincrement())
+  user_id     Int?
+  bin_type    String
+  quantity    Int
+  address     String
+  pickup_date DateTime? @db.Timestamptz(6)
+  notes       String?
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+}
+
+model bookings {
+  id            Int      @id @default(autoincrement())
+  user_id       Int?
+  full_name     String
+  service_type  String
+  industry_type String
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model sessions {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  token      String   @unique
+  expires_at DateTime @db.Timestamptz(6)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model users {
+  id            Int      @id @default(autoincrement())
+  name          String
+  email         String   @unique
+  password_hash String
+  avatar        String?
+  phone         String?
+  address       String?
+  role          String   @default("user")
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model volunteers {
+  id                 Int      @id @default(autoincrement())
+  user_id            Int?
+  name               String
+  email              String
+  phone              String
+  education          String
+  education_other    String?
+  state_of_origin    String
+  lga                String
+  address            String
+  initiatives        String?
+  skills             String?
+  hours_availability String
+  why_interested     String
+  hope_gain          String
+  signature          String
+  created_at         DateTime @default(now()) @db.Timestamptz(6)
 }
 
 model InternshipApplication {
@@ -23,7 +118,7 @@ model InternshipApplication {
   gender               String?
   
   // Position Selection
-  position             String   // Social Media Manager Intern, Graphic Designer Intern, Climate Education & Course Development Intern
+  position             String
   
   // Education & Experience
   highestQualification String
@@ -35,9 +130,9 @@ model InternshipApplication {
   relevantSkills       String
   
   // Motivation
-  interestReason       String   // Why are you interested in joining Shara?
-  learningGoals        String   // What do you hope to learn?
-  contribution         String   // What can you contribute?
+  interestReason       String
+  learningGoals        String
+  contribution         String
   
   // Position-Specific Answers
   socialMediaPlatforms String?
@@ -47,7 +142,7 @@ model InternshipApplication {
   
   designTools          String?
   designPortfolioUrl   String?
-  designWorkSamples    String?  // File upload path
+  designWorkSamples    String?
   designExperience     String?
   
   educationContentExp  String?
@@ -58,16 +153,16 @@ model InternshipApplication {
   
   // Availability
   preferredStartDate   DateTime
-  availability         String   // Part-time, Full-time
-  workingArrangement   String   // Remote
+  availability         String
+  workingArrangement   String
   
   // Declarations
   unpaidInternshipAccepted Boolean
   declarationAccepted  Boolean
   
   // Metadata
-  applicationRef       String   @unique // SHARA-XXXXXX format
-  status               String   @default("pending") // pending, reviewed, shortlisted, rejected, accepted
+  applicationRef       String   @unique
+  status               String   @default("pending")
   submittedAt          DateTime @default(now())
   updatedAt            DateTime @updatedAt
   

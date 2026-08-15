@@ -1,8 +1,11 @@
+import fs from 'fs'
+import path from 'path'
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { generateApplicationRef } from '@/lib/internship'
 
-// Retry helper function for transient database errors
+const FALLBACK_FILE = path.join(process.cwd(), 'data', 'internship-applications.json')
+
 async function executeWithRetry<T>(
   fn: () => Promise<T>,
   maxRetries: number = 3,
@@ -16,19 +19,17 @@ async function executeWithRetry<T>(
     } catch (error: any) {
       lastError = error
 
-      // Retry on connection errors, but not on logical errors
       if (
-        error.code === 'P1001' || // Database connection error
-        error.code === 'P1002' || // Timeout error
-        error.message?.includes('Connection terminated')
+        error.code === 'P1001' ||
+        error.code === 'P1002' ||
+        error.message?.includes('Connection terminated') ||
+        error.message?.includes('database server')
       ) {
         if (attempt < maxRetries) {
-          // Exponential backoff: 100ms, 200ms, 400ms
           await new Promise((resolve) => setTimeout(resolve, delayMs * Math.pow(2, attempt - 1)))
           continue
         }
       } else {
-        // Don't retry on non-connection errors
         throw error
       }
     }
@@ -37,11 +38,85 @@ async function executeWithRetry<T>(
   throw lastError || new Error('Failed after retries')
 }
 
+function readApplicationsFromFallback(): any[] {
+  try {
+    if (!fs.existsSync(FALLBACK_FILE)) {
+      fs.mkdirSync(path.dirname(FALLBACK_FILE), { recursive: true })
+      fs.writeFileSync(FALLBACK_FILE, '[]', 'utf-8')
+      return []
+    }
+
+    const content = fs.readFileSync(FALLBACK_FILE, 'utf-8')
+    const parsed = JSON.parse(content)
+    return Array.isArray(parsed) ? parsed : []
+  } catch (error) {
+    console.error('Failed to read fallback internship applications:', error)
+    return []
+  }
+}
+
+function writeApplicationsToFallback(applications: any[]) {
+  try {
+    fs.mkdirSync(path.dirname(FALLBACK_FILE), { recursive: true })
+    fs.writeFileSync(FALLBACK_FILE, JSON.stringify(applications, null, 2), 'utf-8')
+    return true
+  } catch (error) {
+    console.error('Failed to write fallback internship applications:', error)
+    return false
+  }
+}
+
+async function createFallbackApplication(data: any) {
+  const records = readApplicationsFromFallback()
+  const normalizedEmail = String(data.email || '').trim().toLowerCase()
+  const normalizedPosition = String(data.position || '').trim()
+
+  const duplicate = records.some(
+    (item) =>
+      String(item.email || '').trim().toLowerCase() === normalizedEmail &&
+      String(item.position || '').trim() === normalizedPosition
+  )
+
+  if (duplicate) {
+    return { duplicate: true }
+  }
+
+  let applicationRef = generateApplicationRef()
+  let attemptCount = 0
+
+  while (
+    records.some((item) => String(item.applicationRef || '').toUpperCase() === applicationRef)
+      && attemptCount < 10
+  ) {
+    applicationRef = generateApplicationRef()
+    attemptCount += 1
+  }
+
+  const now = new Date().toISOString()
+  const record = {
+    id: `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    ...data,
+    applicationRef,
+    status: 'pending',
+    submittedAt: now,
+    updatedAt: now,
+    storage: 'local-fallback',
+  }
+
+  records.push(record)
+  const saved = writeApplicationsToFallback(records)
+
+  if (!saved) {
+    throw new Error('Failed to save application locally. Please try again.')
+  }
+
+  return { duplicate: false, record }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json()
 
-    // Validate required fields
     if (!data.fullName || !data.email || !data.position) {
       return NextResponse.json(
         { ok: false, error: 'Missing required fields' },
@@ -49,13 +124,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const normalizedData = {
+      ...data,
+      email: String(data.email).trim().toLowerCase(),
+      fullName: String(data.fullName).trim(),
+      position: String(data.position).trim(),
+    }
+
     try {
-      // Check for duplicate email + position with retry
       const existingApp = await executeWithRetry(() =>
         prisma.internshipApplication.findFirst({
           where: {
-            email: data.email,
-            position: data.position,
+            email: normalizedData.email,
+            position: normalizedData.position,
           },
         })
       )
@@ -70,7 +151,6 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      // Generate unique reference with retry
       let applicationRef = generateApplicationRef()
       let refExists = true
       let attemptCount = 0
@@ -86,7 +166,7 @@ export async function POST(request: NextRequest) {
           refExists = false
         } else {
           applicationRef = generateApplicationRef()
-          attemptCount++
+          attemptCount += 1
         }
       }
 
@@ -100,11 +180,10 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      // Create application with retry
       const application = await executeWithRetry(() =>
         prisma.internshipApplication.create({
           data: {
-            ...data,
+            ...normalizedData,
             applicationRef,
             status: 'pending',
           },
@@ -115,11 +194,11 @@ export async function POST(request: NextRequest) {
         ok: true,
         applicationRef: application.applicationRef,
         applicationId: application.id,
+        storage: 'database',
       })
     } catch (dbError: any) {
-      console.error('Database error:', dbError)
+      console.error('Database submission failed, falling back to local storage:', dbError)
 
-      // Provide specific error messages based on error type
       if (dbError.code === 'P2002') {
         return NextResponse.json(
           { ok: false, error: 'You have already submitted an application for this position' },
@@ -127,53 +206,31 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      if (dbError.code === 'P1001' || dbError.code === 'P1002') {
+      const fallbackResult = await createFallbackApplication(normalizedData)
+
+      if (fallbackResult.duplicate) {
         return NextResponse.json(
           {
             ok: false,
-            error:
-              'Database connection error. Please check your connection and try again in a moment.',
+            error: 'You have already submitted an application for this position',
           },
-          { status: 503 }
+          { status: 409 }
         )
       }
 
-      if (dbError.code === 'P2021') {
-        return NextResponse.json(
-          {
-            ok: false,
-            error: 'Application database table not found. Database may need to be migrated. Please contact support.',
-          },
-          { status: 503 }
-        )
-      }
-
-      if (dbError.message?.includes('Connection terminated')) {
-        return NextResponse.json(
-          {
-            ok: false,
-            error:
-              'Database connection was interrupted. Please try submitting your application again.',
-          },
-          { status: 503 }
-        )
-      }
-
-      return NextResponse.json(
-        {
-          ok: false,
-          error: `Error: ${dbError.message || 'Failed to process application'}`,
-        },
-        { status: 500 }
-      )
+      return NextResponse.json({
+        ok: true,
+        applicationRef: fallbackResult.record.applicationRef,
+        applicationId: fallbackResult.record.id,
+        storage: 'local-fallback',
+      })
     }
   } catch (error: any) {
     console.error('Application submission error:', error)
     return NextResponse.json(
       {
         ok: false,
-        error:
-          error.message || 'Failed to process application. Please try again later.',
+        error: error.message || 'Failed to process application. Please try again later.',
       },
       { status: 500 }
     )

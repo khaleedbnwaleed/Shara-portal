@@ -45,8 +45,8 @@ export function InternshipApplicationForm() {
   const [currentStep, setCurrentStep] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(internshipApplicationSchema),
+  const form = useForm<any>({
+    resolver: zodResolver(internshipApplicationSchema) as any,
     defaultValues: {
       fullName: '',
       email: '',
