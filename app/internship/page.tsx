@@ -61,7 +61,7 @@ export default function InternshipPage() {
               <p>
                 The internship positions offered by Shara Eco Solutions Limited are unpaid learning
                 and professional development opportunities. No salary, stipend, allowance, or
-                financial remuneration is attached to these positions.
+                financial remuneration is attached to these positions. A Data stipend is attached.
               </p>
               <p className="font-semibold">
                 Applicants should only apply if they understand and are willing to participate
