@@ -32,7 +32,7 @@ export default function Header() {
       { label: 'Projects', href: '/#projects' },
       { label: 'Pricing', href: '/pricing' },
       { label: 'Team', href: '/team' },
-      { label: 'Internship', href: '/internship' },
+      { label: 'Internship', href: '/internships' },
       { label: 'Contact', href: '/#contact' },
     ];
 
