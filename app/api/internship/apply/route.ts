@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
         storage: 'database',
       })
     } catch (dbError: any) {
-      console.error('Database submission failed, falling back to local storage:', dbError)
+      console.error('Database submission failed:', dbError)
 
       if (dbError.code === 'P2002') {
         return NextResponse.json(
@@ -219,24 +219,13 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      const fallbackResult = await createFallbackApplication(normalizedData)
-
-      if (fallbackResult.duplicate) {
-        return NextResponse.json(
-          {
-            ok: false,
-            error: 'You have already submitted an application for this position',
-          },
-          { status: 409 }
-        )
-      }
-
-      return NextResponse.json({
-        ok: true,
-        applicationRef: fallbackResult.record.applicationRef,
-        applicationId: fallbackResult.record.id,
-        storage: fallbackResult.persisted ? 'local-fallback' : 'memory-fallback',
-      })
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'Unable to save your internship application to the database. Please try again in a moment.',
+        },
+        { status: 500 }
+      )
     }
   } catch (error: any) {
     console.error('Application submission error:', error)

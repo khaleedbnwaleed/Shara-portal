@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
-import { Pool } from 'pg'
+import { PrismaNeon } from '@prisma/adapter-neon'
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient | undefined }
 
@@ -11,8 +10,7 @@ const createPrismaClient = () => {
     throw new Error('DATABASE_URL environment variable is not set')
   }
 
-  const pool = new Pool({ connectionString })
-  const adapter = new PrismaPg(pool)
+  const adapter = new PrismaNeon({ connectionString })
 
   return new PrismaClient({ adapter })
 }
