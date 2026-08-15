@@ -5,6 +5,9 @@ import { prisma } from '@/lib/prisma'
 import { generateApplicationRef } from '@/lib/internship'
 
 const FALLBACK_FILE = path.join(process.cwd(), 'data', 'internship-applications.json')
+const globalForFallbacks = globalThis as typeof globalThis & {
+  __internshipFallbacks?: any[]
+}
 
 async function executeWithRetry<T>(
   fn: () => Promise<T>,
@@ -39,23 +42,33 @@ async function executeWithRetry<T>(
 }
 
 function readApplicationsFromFallback(): any[] {
+  if (globalForFallbacks.__internshipFallbacks) {
+    return globalForFallbacks.__internshipFallbacks
+  }
+
   try {
     if (!fs.existsSync(FALLBACK_FILE)) {
       fs.mkdirSync(path.dirname(FALLBACK_FILE), { recursive: true })
       fs.writeFileSync(FALLBACK_FILE, '[]', 'utf-8')
+      globalForFallbacks.__internshipFallbacks = []
       return []
     }
 
     const content = fs.readFileSync(FALLBACK_FILE, 'utf-8')
     const parsed = JSON.parse(content)
-    return Array.isArray(parsed) ? parsed : []
+    const records = Array.isArray(parsed) ? parsed : []
+    globalForFallbacks.__internshipFallbacks = records
+    return records
   } catch (error) {
     console.error('Failed to read fallback internship applications:', error)
+    globalForFallbacks.__internshipFallbacks = []
     return []
   }
 }
 
 function writeApplicationsToFallback(applications: any[]) {
+  globalForFallbacks.__internshipFallbacks = applications
+
   try {
     fs.mkdirSync(path.dirname(FALLBACK_FILE), { recursive: true })
     fs.writeFileSync(FALLBACK_FILE, JSON.stringify(applications, null, 2), 'utf-8')
@@ -106,11 +119,11 @@ async function createFallbackApplication(data: any) {
   records.push(record)
   const saved = writeApplicationsToFallback(records)
 
-  if (!saved) {
-    throw new Error('Failed to save application locally. Please try again.')
+  return {
+    duplicate: false,
+    record,
+    persisted: saved,
   }
-
-  return { duplicate: false, record }
 }
 
 export async function POST(request: NextRequest) {
@@ -222,7 +235,7 @@ export async function POST(request: NextRequest) {
         ok: true,
         applicationRef: fallbackResult.record.applicationRef,
         applicationId: fallbackResult.record.id,
-        storage: 'local-fallback',
+        storage: fallbackResult.persisted ? 'local-fallback' : 'memory-fallback',
       })
     }
   } catch (error: any) {
