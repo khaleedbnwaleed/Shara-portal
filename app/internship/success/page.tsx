@@ -56,7 +56,7 @@ export default async function InternshipSuccessPage({
               <p className="text-sm text-foreground">
                 <span className="font-semibold">What's next?</span> Our recruitment team will
                 review all applications and contact shortlisted candidates for further assessment
-                or interviews. This process typically takes 2-4 weeks.
+                or interviews. This process typically takes 2 weeks.
               </p>
             </div>
           </div>
