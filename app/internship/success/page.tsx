@@ -87,7 +87,7 @@ export default async function InternshipSuccessPage({
                   When will I hear back about my application?
                 </p>
                 <p className="text-muted-foreground">
-                  Our recruitment team typically reviews applications within 2-4 weeks. Only
+                  Our recruitment team typically reviews applications within 2 weeks. Only
                   shortlisted candidates will be contacted.
                 </p>
               </div>
