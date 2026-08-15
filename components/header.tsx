@@ -31,7 +31,6 @@ export default function Header() {
       { label: 'Services', href: '/#services' },
       { label: 'Projects', href: '/#projects' },
       { label: 'Pricing', href: '/pricing' },
-      { label: 'Green School Innovation', href: '/greenschoolinnovation' },
       { label: 'Team', href: '/team' },
       { label: 'Contact', href: '/#contact' },
     ];
