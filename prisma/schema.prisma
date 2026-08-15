@@ -9,4 +9,69 @@ datasource db {
   provider = "postgresql"
 }
 
-// All models removed - using Google Form for bootcamp registrations instead
+model InternshipApplication {
+  id                   String   @id @default(cuid())
+  
+  // Personal Information
+  fullName             String
+  email                String
+  phoneNumber          String
+  location             String
+  country              String
+  state                String
+  age                  Int
+  gender               String?
+  
+  // Position Selection
+  position             String   // Social Media Manager Intern, Graphic Designer Intern, Climate Education & Course Development Intern
+  
+  // Education & Experience
+  highestQualification String
+  fieldOfStudy         String
+  institution          String
+  graduationYear       Int
+  currentOccupation    String?
+  previousExperience   String
+  relevantSkills       String
+  
+  // Motivation
+  interestReason       String   // Why are you interested in joining Shara?
+  learningGoals        String   // What do you hope to learn?
+  contribution         String   // What can you contribute?
+  
+  // Position-Specific Answers
+  socialMediaPlatforms String?
+  socialMediaTools     String?
+  socialMediaPortfolio String?
+  socialMediaCampaign  String?
+  
+  designTools          String?
+  designPortfolioUrl   String?
+  designWorkSamples    String?  // File upload path
+  designExperience     String?
+  
+  educationContentExp  String?
+  teachingExperience   String?
+  onlineCourseExp      String?
+  educationPortfolio   String?
+  climateTopicIdea     String?
+  
+  // Availability
+  preferredStartDate   DateTime
+  availability         String   // Part-time, Full-time
+  workingArrangement   String   // Remote
+  
+  // Declarations
+  unpaidInternshipAccepted Boolean
+  declarationAccepted  Boolean
+  
+  // Metadata
+  applicationRef       String   @unique // SHARA-XXXXXX format
+  status               String   @default("pending") // pending, reviewed, shortlisted, rejected, accepted
+  submittedAt          DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  
+  @@index([email])
+  @@index([position])
+  @@index([status])
+}
