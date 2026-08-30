@@ -59,10 +59,13 @@ export async function createSession(userId: number) {
   return token
 }
 
-export async function getUserFromSession(token: string) {
+let schemaReady = false
+
+async function ensureSessionSchema() {
+  if (schemaReady) return
+
   const db = getDb()
 
-  // Ensure sessions table exists (this is required for both Neon and local JSON modes)
   await db.query(`
     CREATE TABLE IF NOT EXISTS sessions (
       id SERIAL PRIMARY KEY,
@@ -73,7 +76,6 @@ export async function getUserFromSession(token: string) {
     )
   `)
 
-  // Ensure users table exists so session lookups don't fail on a fresh DB
   await db.query(`
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
@@ -88,8 +90,13 @@ export async function getUserFromSession(token: string) {
     )
   `)
 
-  // Ensure schema includes role column
   await db.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS role text NOT NULL DEFAULT 'user'")
+  schemaReady = true
+}
+
+export async function getUserFromSession(token: string) {
+  const db = getDb()
+  await ensureSessionSchema()
 
   const res = await db.query(
     `SELECT u.*

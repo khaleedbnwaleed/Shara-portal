@@ -30,27 +30,45 @@ type DatabaseShape = {
 }
 
 const DB_FILE = path.resolve(process.cwd(), 'data.json')
+let cachedData: DatabaseShape | null = null
+let isWriting = false
 
 function readData(): DatabaseShape {
+  if (cachedData) return cachedData
+
   if (!fs.existsSync(DB_FILE)) {
     const initial: DatabaseShape = { users: [], sessions: [], volunteers: [], bookings: [], binRequests: [] }
     fs.writeFileSync(DB_FILE, JSON.stringify(initial, null, 2))
+    cachedData = initial
     return initial
   }
 
   const raw = fs.readFileSync(DB_FILE, 'utf-8')
   const data = JSON.parse(raw) as Partial<DatabaseShape>
-  return {
+  cachedData = {
     users: data.users ?? [],
     sessions: data.sessions ?? [],
     volunteers: data.volunteers ?? [],
     bookings: data.bookings ?? [],
     binRequests: data.binRequests ?? [],
   }
+
+  return cachedData
 }
 
 function writeData(data: Record<string, any>) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2))
+  if (isWriting) {
+    cachedData = data as DatabaseShape
+    return
+  }
+
+  isWriting = true
+  try {
+    cachedData = data as DatabaseShape
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2))
+  } finally {
+    isWriting = false
+  }
 }
 
 function nextId(items: Array<{ id: number }>) {

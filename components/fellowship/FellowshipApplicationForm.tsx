@@ -6,8 +6,8 @@ import { AlertCircle, ArrowLeft, ArrowRight, Check, Loader2, LockKeyhole } from 
 import { calculateAge, fellowshipApplicationSchema, fellowshipInterests, fellowshipSkills, type FellowshipApplicationValues } from '@/lib/fellowship'
 
 const steps = ['Personal information', 'Education & background', 'Climate experience', 'Motivation & leadership', 'Skills & availability', 'Declaration']
-const inputClass = 'mt-2 min-h-12 w-full rounded-xl border border-[#d3e2cf] bg-white px-4 text-[#17351f] outline-none transition placeholder:text-[#9aab9d] focus:border-[#2f7b45] focus:ring-4 focus:ring-[#2f7b45]/10'
-const labelClass = 'text-sm font-bold text-[#31543b]'
+const inputClass = 'mt-2 min-h-12 w-full rounded-xl border border-border bg-white px-4 text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/10'
+const labelClass = 'text-sm font-bold text-foreground'
 
 const initialValues: FellowshipApplicationValues = {
   fullName: '', email: '', phone: '', gender: '', dateOfBirth: '', age: 0, state: '', lga: '', community: '', country: 'Nigeria', address: '', education: '', fieldOfStudy: '', institution: '', occupation: '', organization: '', role: '', hasClimateExperience: 'No', climateExperience: '', climateInterests: [], motivation: '', communityChallenge: '', proposedImpact: '', leadershipExperience: '', climateLeadership: '', skills: [], digitalLiteracy: '', availability: 'Yes', referralSource: '', declarationAccepted: false, communicationsOptIn: false,
