@@ -170,3 +170,94 @@ model InternshipApplication {
   @@index([position])
   @@index([status])
 }
+
+model FellowshipApplicant {
+  id                    String   @id @default(cuid())
+  applicationId         String   @unique
+  fullName              String
+  email                 String
+  phone                 String
+  gender                String
+  dateOfBirth           DateTime
+  age                   Int
+  state                 String
+  lga                   String
+  community             String?
+  country               String
+  address               String?
+  education             String
+  fieldOfStudy          String?
+  institution           String?
+  occupation            String
+  organization          String?
+  role                  String?
+  climateExperience     String?
+  climateInterests      String[]
+  motivation            String
+  communityChallenge    String
+  proposedImpact        String
+  leadershipExperience  String
+  climateLeadership     String
+  skills                String[]
+  digitalLiteracy       String
+  availability          String
+  referralSource        String
+  declarationAccepted  Boolean
+  communicationsOptIn  Boolean
+  status                String   @default("Submitted")
+  score                 Int?
+  reviewerNotes         String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  reviews               FellowshipReview[]
+
+  @@index([email])
+  @@index([state])
+  @@index([gender])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model FellowshipReviewer {
+  id          String   @id @default(cuid())
+  name        String
+  email       String   @unique
+  role        String
+  passwordRef String?
+  createdAt   DateTime @default(now())
+  reviews     FellowshipReview[]
+}
+
+model FellowshipReview {
+  id                 String   @id @default(cuid())
+  applicationId      String
+  reviewerId         String
+  motivationScore    Int
+  climateScore       Int
+  leadershipScore    Int
+  impactScore        Int
+  innovationScore    Int
+  communicationScore Int
+  totalScore         Int
+  notes              String?
+  createdAt          DateTime @default(now())
+  applicant          FellowshipApplicant @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  reviewer           FellowshipReviewer @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@index([reviewerId])
+}
+
+model FellowshipSettings {
+  id                    Int      @id @default(1)
+  title                 String   @default("Shara Climate Champions Fellowship")
+  description           String   @default("A youth fellowship for climate leadership and community action.")
+  duration              String   @default("12 weeks")
+  format                String   @default("A blended programme with virtual learning and community action.")
+  contactEmail          String   @default("hello@shara.com.ng")
+  applicationOpen       Boolean  @default(true)
+  openingDate           DateTime?
+  closingDate           DateTime?
+  maxApplications       Int?
+  updatedAt             DateTime @updatedAt
+}

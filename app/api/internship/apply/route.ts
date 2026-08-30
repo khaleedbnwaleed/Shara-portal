@@ -141,19 +141,28 @@ export async function POST(request: NextRequest) {
       ? new Date(data.preferredStartDate)
       : null
 
-    if (!preferredStartDateValue || Number.isNaN(preferredStartDateValue.getTime())) {
+    if (preferredStartDateValue === null) {
       return NextResponse.json(
         { ok: false, error: 'Please provide a valid preferred start date.' },
         { status: 400 }
       )
     }
 
+    if (Number.isNaN(preferredStartDateValue.getTime())) {
+      return NextResponse.json(
+        { ok: false, error: 'Please provide a valid preferred start date.' },
+        { status: 400 }
+      )
+    }
+
+    const preferredStartDate = preferredStartDateValue
+
     const normalizedData = {
       ...data,
       email: String(data.email).trim().toLowerCase(),
       fullName: String(data.fullName).trim(),
       position: String(data.position).trim(),
-      preferredStartDate: preferredStartDateValue,
+      preferredStartDate,
     }
 
     try {
@@ -209,7 +218,7 @@ export async function POST(request: NextRequest) {
         prisma.internshipApplication.create({
           data: {
             ...normalizedData,
-            preferredStartDate: preferredStartDateValue,
+            preferredStartDate,
             applicationRef,
             status: 'pending',
           },

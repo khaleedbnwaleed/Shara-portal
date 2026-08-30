@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, LayoutDashboard, Users, ClipboardList, Box, CheckCircle2 } from 'lucide-react'
+import { Menu, X, LayoutDashboard, Users, ClipboardList, Box, CheckCircle2, Leaf } from 'lucide-react'
 
 type AdminShellProps = {
   user: { name: string; avatar?: string | null }
@@ -67,6 +67,13 @@ export default function AdminShell({ user, children }: AdminShellProps) {
         >
           <Box className="h-4 w-4" />
           Bin Requests
+        </Link>
+        <Link
+          href="/admin/fellowship"
+          className="flex items-center gap-3 rounded-lg px-4 py-2 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-primary hover:text-sidebar-primary-foreground transition-colors"
+        >
+          <Leaf className="h-4 w-4" />
+          Climate Fellowship
         </Link>
       </nav>
 
