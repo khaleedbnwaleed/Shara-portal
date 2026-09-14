@@ -65,7 +65,7 @@ export const fellowshipConfig = {
   duration: '12 weeks',
   format: 'A blended programme with virtual learning and community action.',
   contactEmail: 'hello@shara.com.ng',
-  applicationOpen: true,
+  applicationOpen: false,
   maxApplications: null as number | null,
 }
 

@@ -29,6 +29,20 @@ export async function PATCH(request: NextRequest) {
   const { applicationId, status, reviewerNotes, scores } = parsed.data
   const score = scores ? Object.values(scores).reduce((total, value) => total + value, 0) : undefined
   const applicant = await prisma.fellowshipApplicant.update({ where: { applicationId }, data: { ...(status ? { status } : {}), ...(reviewerNotes !== undefined ? { reviewerNotes } : {}), ...(score !== undefined ? { score } : {}) } })
+
+  if (status) {
+    await prisma.fellowshipDecision.create({
+      data: {
+        applicantId: applicant.id,
+        applicationId: applicant.applicationId,
+        decision: status,
+        reason: reviewerNotes ?? null,
+        reviewerName: admin.name,
+        reviewerEmail: admin.email,
+      },
+    })
+  }
+
   if (scores) {
     const reviewer = await prisma.fellowshipReviewer.upsert({
       where: { email: admin.email },

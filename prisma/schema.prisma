@@ -105,21 +105,21 @@ model volunteers {
 }
 
 model InternshipApplication {
-  id                   String   @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Personal Information
-  fullName             String
-  email                String
-  phoneNumber          String
-  location             String
-  country              String
-  state                String
-  age                  Int
-  gender               String?
-  
+  fullName    String
+  email       String
+  phoneNumber String
+  location    String
+  country     String
+  state       String
+  age         Int
+  gender      String?
+
   // Position Selection
-  position             String
-  
+  position String
+
   // Education & Experience
   highestQualification String
   fieldOfStudy         String
@@ -128,88 +128,89 @@ model InternshipApplication {
   currentOccupation    String?
   previousExperience   String
   relevantSkills       String
-  
+
   // Motivation
-  interestReason       String
-  learningGoals        String
-  contribution         String
-  
+  interestReason String
+  learningGoals  String
+  contribution   String
+
   // Position-Specific Answers
   socialMediaPlatforms String?
   socialMediaTools     String?
   socialMediaPortfolio String?
   socialMediaCampaign  String?
-  
-  designTools          String?
-  designPortfolioUrl   String?
-  designWorkSamples    String?
-  designExperience     String?
-  
-  educationContentExp  String?
-  teachingExperience   String?
-  onlineCourseExp      String?
-  educationPortfolio   String?
-  climateTopicIdea     String?
-  
+
+  designTools        String?
+  designPortfolioUrl String?
+  designWorkSamples  String?
+  designExperience   String?
+
+  educationContentExp String?
+  teachingExperience  String?
+  onlineCourseExp     String?
+  educationPortfolio  String?
+  climateTopicIdea    String?
+
   // Availability
-  preferredStartDate   DateTime
-  availability         String
-  workingArrangement   String
-  
+  preferredStartDate DateTime
+  availability       String
+  workingArrangement String
+
   // Declarations
   unpaidInternshipAccepted Boolean
-  declarationAccepted  Boolean
-  
+  declarationAccepted      Boolean
+
   // Metadata
-  applicationRef       String   @unique
-  status               String   @default("pending")
-  submittedAt          DateTime @default(now())
-  updatedAt            DateTime @updatedAt
-  
+  applicationRef String   @unique
+  status         String   @default("pending")
+  submittedAt    DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
   @@index([email])
   @@index([position])
   @@index([status])
 }
 
 model FellowshipApplicant {
-  id                    String   @id @default(cuid())
-  applicationId         String   @unique
-  fullName              String
-  email                 String
-  phone                 String
-  gender                String
-  dateOfBirth           DateTime
-  age                   Int
-  state                 String
-  lga                   String
-  community             String?
-  country               String
-  address               String?
-  education             String
-  fieldOfStudy          String?
-  institution           String?
-  occupation            String
-  organization          String?
-  role                  String?
-  climateExperience     String?
-  climateInterests      String[]
-  motivation            String
-  communityChallenge    String
-  proposedImpact        String
-  leadershipExperience  String
-  climateLeadership     String
-  skills                String[]
-  digitalLiteracy       String
-  availability          String
-  referralSource        String
+  id                   String               @id @default(cuid())
+  applicationId        String               @unique
+  fullName             String
+  email                String
+  phone                String
+  gender               String
+  dateOfBirth          DateTime
+  age                  Int
+  state                String
+  lga                  String
+  community            String?
+  country              String
+  address              String?
+  education            String
+  fieldOfStudy         String?
+  institution          String?
+  occupation           String
+  organization         String?
+  role                 String?
+  climateExperience    String?
+  climateInterests     String[]
+  motivation           String
+  communityChallenge   String
+  proposedImpact       String
+  leadershipExperience String
+  climateLeadership    String
+  skills               String[]
+  digitalLiteracy      String
+  availability         String
+  referralSource       String
   declarationAccepted  Boolean
   communicationsOptIn  Boolean
-  status                String   @default("Submitted")
-  score                 Int?
-  reviewerNotes         String?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-  reviews               FellowshipReview[]
+  status               String               @default("Submitted")
+  score                Int?
+  reviewerNotes        String?
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  reviews              FellowshipReview[]
+  decisions            FellowshipDecision[]
 
   @@index([email])
   @@index([state])
@@ -219,17 +220,17 @@ model FellowshipApplicant {
 }
 
 model FellowshipReviewer {
-  id          String   @id @default(cuid())
+  id          String             @id @default(cuid())
   name        String
-  email       String   @unique
+  email       String             @unique
   role        String
   passwordRef String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime           @default(now())
   reviews     FellowshipReview[]
 }
 
 model FellowshipReview {
-  id                 String   @id @default(cuid())
+  id                 String              @id @default(cuid())
   applicationId      String
   reviewerId         String
   motivationScore    Int
@@ -240,24 +241,41 @@ model FellowshipReview {
   communicationScore Int
   totalScore         Int
   notes              String?
-  createdAt          DateTime @default(now())
+  createdAt          DateTime            @default(now())
   applicant          FellowshipApplicant @relation(fields: [applicationId], references: [id], onDelete: Cascade)
-  reviewer           FellowshipReviewer @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+  reviewer           FellowshipReviewer  @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
 
   @@index([applicationId])
   @@index([reviewerId])
 }
 
+model FellowshipDecision {
+  id            String              @id @default(cuid())
+  applicantId   String
+  applicationId String
+  decision      String
+  reason        String?
+  reviewerName  String?
+  reviewerEmail String?
+  createdAt     DateTime            @default(now())
+  applicant     FellowshipApplicant @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+
+  @@index([applicantId])
+  @@index([applicationId])
+  @@index([decision])
+  @@index([createdAt])
+}
+
 model FellowshipSettings {
-  id                    Int      @id @default(1)
-  title                 String   @default("Shara Climate Champions Fellowship")
-  description           String   @default("A youth fellowship for climate leadership and community action.")
-  duration              String   @default("12 weeks")
-  format                String   @default("A blended programme with virtual learning and community action.")
-  contactEmail          String   @default("hello@shara.com.ng")
-  applicationOpen       Boolean  @default(true)
-  openingDate           DateTime?
-  closingDate           DateTime?
-  maxApplications       Int?
-  updatedAt             DateTime @updatedAt
+  id              Int       @id @default(1)
+  title           String    @default("Shara Climate Champions Fellowship")
+  description     String    @default("A youth fellowship for climate leadership and community action.")
+  duration        String    @default("12 weeks")
+  format          String    @default("A blended programme with virtual learning and community action.")
+  contactEmail    String    @default("hello@shara.com.ng")
+  applicationOpen Boolean   @default(true)
+  openingDate     DateTime?
+  closingDate     DateTime?
+  maxApplications Int?
+  updatedAt       DateTime  @updatedAt
 }
