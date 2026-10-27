@@ -279,3 +279,27 @@ model FellowshipSettings {
   maxApplications Int?
   updatedAt       DateTime  @updatedAt
 }
+
+model ClimateTechRegistration {
+  id               String   @id @default(cuid())
+  registrationRef  String   @unique
+  organisationName String
+  organisationType String
+  contactName      String
+  email            String
+  phone            String
+  website          String?
+  category         String
+  lga              String
+  address          String?
+  description      String
+  stage            String
+  status           String   @default("submitted")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([email])
+  @@index([category])
+  @@index([lga])
+  @@index([status])
+}

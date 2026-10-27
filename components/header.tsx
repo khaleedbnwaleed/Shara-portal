@@ -32,7 +32,7 @@ export default function Header() {
       { label: 'Projects', href: '/#projects' },
       { label: 'Pricing', href: '/pricing' },
       { label: 'Team', href: '/team' },
-      { label: 'Fellowship', href: '/fellowship' },
+      { label: 'Climate Tech Map', href: '/ecosystem' },
       { label: 'Contact', href: '/#contact' },
     ];
 
